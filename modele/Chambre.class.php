@@ -44,7 +44,7 @@
 
      public static function delChambre($id) //methode supprimant une chambre 
          {
-                var_dump($id);
+             
               $base=Base::getBDD();
               $req=$base->prepare('delete from chambre where enregistrement_chambre=:cod');
               $req->execute(array('cod'=>$id)); 
