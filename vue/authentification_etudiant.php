@@ -15,7 +15,7 @@
         	
         	 <div class="panel panel-default" style="margin:50px auto;margin-top:170px;">
                   <div class="panel-heading">
-                      <h3 style="text-align:center">Connexion</h3>
+                      <h3 style="text-align:center">Connexion de l'etudiant</h3>
              
                       <div class="panel-body">
                          <input type="text" required class='form-control' placeholder='' /><br/>
