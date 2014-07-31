@@ -10,6 +10,7 @@
     	 private $position_couloir;
     	 private $genre_couloir;
     	 private $ref_etage;
+       
 
   	
   	     function __construct($code_couloir,$position,$id_etage,$genre)
@@ -18,6 +19,7 @@
   	        	$this->position_couloir=$position;
   	        	$this->ref_etage=$id_etage;
   	        	$this->genre_couloir=$genre;
+            
 
   	      }
 
@@ -28,8 +30,8 @@
 
   	      public function createCouloir()
   	      {
-  	      	   $base=Base::getBDD();
-					     $req=$base->prepare('insert into couloir (Code_Couloir,position_couloir,Ref_Etage,genre_couloir) values (?,?,?,?)');
+  	      	   
+					     $req=Base::getBDD()->prepare('insert into couloir (Code_Couloir,position_couloir,Ref_Etage,genre_couloir) values (?,?,?,?)');
 					     $req->execute(array($this->id_couloir,$this->position_couloir,$this->ref_etage,$this->genre_couloir));
 
   	      	

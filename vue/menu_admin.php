@@ -54,7 +54,7 @@
                           <li class='dropdown' id='reserv'>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametrage <span class="caret"></span></a>
                                    <ul class='dropdown-menu' role='menu'>
-                                    <li><a href="">Parametrage reservation</a></li>
+                                    <li><a href="index.php?action=Reservation">Parametrage reservation</a></li>
                                      <li><a href="">Nouvelle annee academique</a></li>
                                                                  
                                   </ul>

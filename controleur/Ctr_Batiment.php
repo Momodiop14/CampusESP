@@ -70,7 +70,7 @@
 					   public function set_chambre($id,$chambre,$couloir)
 					  {
 					  	  $recup_id=explode("_", $id);
-					  	  $ligne=Chambre::delChambre(intval($recup_id[1]),$chambre,$couloir);
+					  	  $ligne=Chambre::setChambre(intval($recup_id[1]),$chambre,$couloir);
 					  	  if ($ligne==1) 
 					  	      {
 					  	         echo "<script text='javascript'>";

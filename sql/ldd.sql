@@ -88,7 +88,7 @@ CREATE TABLE ETUDIANT
      CONSTRAINT pk_etudiant primary key (NoEnregistrementEtudiant),
      CONSTRAINT fk_etudiant foreign key (formation_etudiant) references FORMATIONS(Code_Formation) on delete cascade,
      CONSTRAINT fk_etudiant2 foreign key (ooption_etudiant) references OOption(id_Option) on delete cascade,
-     CONSTRAINT fk_etudiant3 foreign key (chambre_habite) references CHAMBRE(enregistrement_chambre) on delete cascade,
+     CONSTRAINT fk_etudiant3 foreign key (chambre_habite) references CHAMBRE(enregistrement_chambre) on set null,
      CONSTRAINT un_etudiant UNIQUE(identifiant)
 );
 
@@ -191,6 +191,17 @@ CREATE TABLE ADMIN
 	CONSTRAINT pk_admin primary key (Login_admin)
 
 );
+
+CREATE TABLE PARAMETRE_RESERVATION
+
+(
+	date_debut date,
+	date_fin date,
+	heure_debut time,
+	heure_fin time
+	
+);
+
 
 
 

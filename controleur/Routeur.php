@@ -4,6 +4,8 @@
 		require_once 'Controleur/Ctr_Batiment.php';
 		require_once 'Controleur/Ctr_Authentification.php';
 		require_once 'Controleur/Ctr_Agent.php';
+		require_once 'Controleur/Ctr_Scolarite.php';
+		require_once 'Controleur/Ctr_Reservation.php';
 		
 		class Routeur 
 	  {
@@ -11,6 +13,7 @@
           private  $ctr_admin;
           private  $ctr_pav;
           private  $ctr_agent;
+          private $ctr_sco;
          
            function __construct() 
 		    {
@@ -18,6 +21,8 @@
 		    	 $this->ctr_admin=new Ctr_Admin();
 		    	 $this->ctr_pav=new Ctr_Batiment();
 		    	 $this->ctr_agent= new Ctr_Agent();
+		    	 $this->ctr_sco=new Ctr_Scolarite();
+		    	  $this->ctr_reser=new Ctr_Reservation();
 
 		    }
 		  
@@ -60,7 +65,86 @@
                                               } 
 					      	 break;
 
+
+
 					      	 /*Actions admin*/
+
+					      	  case 'save_parametre'  :
+					      	                      {
+	                                                     session_start();
+										            if ( (isset($_SESSION['login'])) && (isset($_REQUEST['heure_begin'])) )
+										                 {
+										                   	
+										                   	 $this->ctr_reser->parametrage_reservation($_REQUEST['date_begin'],$_REQUEST['date_fin'],$_REQUEST['heure_begin'],$_REQUEST['heure_fin']);
+										                 }
+										            else
+										              {
+										              	 session_start();
+										              	 
+										              	 if ( isset($_SESSION['login']) )									              	 
+										              	 	 $this->ctr_admin->page_accueil_admin();
+	                                                       else
+	                                                        $this->ctr_accueil_auth->page_authentification();
+	                                                   }
+                                                  }   
+					      	 break;
+
+
+					      	 case 'new_dept':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] )))
+									        
+									              	 {
+									              	 	 $this->ctr_sco->page_new_dept();
+                                                     }
+                                                    else
+                                                   	// il y a aucun parametre,affichage de l'accueil
+		           	                                $this->ctr_accueil_auth->page_authentification();
+
+		           	                             
+					      	             }
+					      	 
+					      	 break;
+
+					      	   case 'save_dept':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] ))  && (isset($_REQUEST['nom_dept'] )))
+									        
+									              	 {
+									              	 	 $this->ctr_sco->save_new_dept($_REQUEST['nom_dept'],intval($_REQUEST['nb_option']) );
+                                                     }
+                                                    else
+                                                   	// il y a aucun parametre,affichage de l'accueil
+		           	                                $this->ctr_accueil_auth->page_authentification();
+
+		           	                             
+					      	             }
+					      	 
+					      	 break;
+
+                               
+                              case 'Reservation':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] )) )
+									        
+									              	 {
+									              	 	 $this->ctr_reser->page_reservation();
+                                                     }
+                                                    else
+                                                   	// il y a aucun parametre,affichage de l'accueil
+		           	                                $this->ctr_accueil_auth->page_authentification();
+
+		           	                             
+					      	             }
+					      	 
+					      	 break;
+					      	
 					      	 	
 					      	 case 'add_pav':
 					      	             {

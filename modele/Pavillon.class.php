@@ -11,6 +11,7 @@
 				private $nomPavillon ;
 				private $niveau_resident;
 				
+				
 
 				function __construct($name_pav,$niveau) //constructeur pour insertion
 				     
@@ -28,8 +29,8 @@
 					  
 					     {
 
-					     	  $base=Base::getBDD();
-					  	 	  $req=$base->prepare('insert into pavillon (nom_pavillon,niveau_etude_resident) values (?,?)');
+					     	  
+					  	 	  $req=Base::getBDD()->prepare('insert into pavillon (nom_pavillon,niveau_etude_resident) values (?,?)');
 					  	      $req->execute(array($this->nomPavillon,$this->niveau_resident));
 
 					     }

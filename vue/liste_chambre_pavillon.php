@@ -4,7 +4,7 @@
      <head>
              <meta name="viewport" content="width=device-width ;text/html;  charset='utf-8' "/>
      	         <script src="js/jquery.js"></script>
-               <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+               <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
                <link href="media/css/jquery.dataTables.css" rel="stylesheet">
                <script src="Bootstrap/js/bootstrap.js"></script>
                <script src="Bootstrap/js/scripts.js"></script>
@@ -29,12 +29,12 @@
   	
   		<?php require_once('menu_admin.php'); ?>
 
-           <div class="modal" id="infos">
+           <div class="modal fade" id="infos">
                 <div class="modal-dialog">
                   <div class="modal-content">
                       <div class="modal-header">
-                       <button type="button" class="close" datadismiss="modal">x</button>
-                       <h4 class="modal-title">Plus d'informations</h4>
+                       <button type="button" id='close_modal' class="close" datadismiss="modal"><span class='glyphicon glyphicon-remove'></span> </button>
+                       <h4 class="modal-title">Description etape suivante</h4>
 
                      </div>
                       <div class="modal-body">
@@ -57,14 +57,14 @@
            </div>
                
                 
-             <div class="row">
+             <div class='row'>
 
                               
                <form method='POST' action='index.php?action=validate'>
 
                   
 
-                <table id='tableau' cellpadding="0" cellspacing="0" border="0" class=" display">
+                <table id='tableau' cellpadding='0' cellspacing='0' border='0' class='display'>
                   <thead>
                      <tr>
                         <th >Numero de la chambre</th>
@@ -110,12 +110,11 @@
                             
                             echo "</tr>";
 
-                            $count++;
+                            
                          
                          } 
 
-                         echo '<input type="hidden" name="count_record" value="'.$count.'" />';
-
+                        
                       ?>
 
 
@@ -149,7 +148,7 @@
                  
            </div>
 
-       </section>
+       
 
 
   		</div>
