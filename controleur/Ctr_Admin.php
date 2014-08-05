@@ -31,6 +31,11 @@
                      	
 
                      	$this->admin->AddUser($login,$pass,$prename,$name,$dateNaissance,$sexe,$user_type);
+                      $succes=true;
+
+                      require_once 'vue/accueil_admin.php';
+
+                     
                      }
                                	 
                              

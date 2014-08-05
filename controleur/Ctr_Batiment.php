@@ -14,14 +14,16 @@
 					private $couloir ;
 					private $chambre;
 					
+
 					
 					public function add_pavillon ($nom_pav,$nb_etage,$nb_chambre_par_etage,$level)
 					  {
 						   $this->pavillon=new Pavillon($nom_pav,$level);
-						   $this->pavillon->CreatePavillon();
+						   $id_pav=$this->pavillon->CreatePavillon();
 						   $symbole_pav=explode(' ', $nom_pav);
 						   
 						   $no_chambre=1;
+						   
 						   
 						   if ( (intval($nb_chambre_par_etage) %2) !=0) 
                                   $nb_chambre_par_etage=intval($nb_chambre_par_etage)+1;
@@ -29,7 +31,7 @@
 						   	 for ($i=0; $i<intval($nb_etage) ; $i++) //boucle pour invoque la methode de creation d'etage
 						   {     
 
-						   	     $this->etage=new Etage($symbole_pav[1].$i,$nom_pav,$i);//on cree l'objet etage
+						   	     $this->etage=new Etage($symbole_pav[1].$i,$id_pav,$i); //on cree l'objet etage
 						   	     $this->etage->createEtage();//on invoque la methode d'insertion a la base donnee
 
 						   	     for ($j=0; $j<2 ; $j++) //boucle parcourant la creation de couloir
@@ -55,10 +57,31 @@
 						   	         
 						   }
 
-						             $liste_chambre=Chambre::getChambre($nom_pav);
+						             $liste_chambre=Chambre::getChambre($id_pav);
+
+						             #var_dump($liste_chambre);
+
+
+						             $array_couloir=Pavillon::getCouloir($id_pav);
+
+						             #var_dump($array_couloir);
+						   	     	 
 						   	     	 require_once 'vue/liste_chambre_pavillon.php';
 
 
+					  }
+
+					  public function setCouloir($array_couloir,$array_genre)
+					  {
+                         
+					  	 $tab_couloir=explode(",", $array_couloir);
+					  	 $tab_genre=explode(",",$array_genre);
+					  	
+					  	 for ($i=0; $i <count($tab_couloir); $i++) 
+					  	 { 
+					  	 	Couloir::setCouloir($tab_couloir[$i],$tab_genre[$i]);
+					  	 }
+					      
 					  }
 
 					  public function delete_chambre($id)
@@ -67,12 +90,13 @@
 					  	  Chambre::delChambre(intval($recup_id[1]));
 					  }
 
-					   public function set_chambre($id,$chambre,$couloir)
+					   public function set_chambre($id,$chambre)
 					  {
 					  	  $recup_id=explode("_", $id);
-					  	  $ligne=Chambre::setChambre(intval($recup_id[1]),$chambre,$couloir);
+					  	  $ligne=Chambre::setChambre(intval($recup_id[1]),$chambre);
 					  	  if ($ligne==1) 
 					  	      {
+					  	      	echo $ligne;
 					  	         echo "<script text='javascript'>";
 					  	         echo "alert('Modification effectuee avec succes')";
 					  	         echo "</script>";

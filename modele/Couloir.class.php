@@ -36,6 +36,17 @@
 
   	      	
   	      }
+
+          public static function setCouloir($code_couloir,$val_genre)
+
+            {
+               $req=Base::getBDD()->prepare("update couloir set genre_couloir=? where Code_Couloir=?");
+               $req->execute(array($val_genre,$code_couloir));
+
+               echo $req->rowCount();
+
+
+            }
   }
 
 

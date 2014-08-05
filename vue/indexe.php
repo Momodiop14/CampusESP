@@ -19,7 +19,16 @@
 
 <!-- Conteneur principal -->
 <div class="container" style="background-color: white;" >
-	<?php require_once 'menu_agent.php';?>
+	<?php require_once 'menu_agent.php';
+        if (isset($error)) 
+        {
+        	echo '<div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <strong>La periode de la reservation est pas encore ouverte  </strong> </div>';
+        }
+
+
+	?>
 	
 vous avez ajoute un nouvel etudiant(e): samba fall
 <hr/>

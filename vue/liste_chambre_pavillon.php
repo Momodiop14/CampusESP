@@ -4,7 +4,7 @@
      <head>
              <meta name="viewport" content="width=device-width ;text/html;  charset='utf-8' "/>
      	         <script src="js/jquery.js"></script>
-               <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
+               <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
                <link href="media/css/jquery.dataTables.css" rel="stylesheet">
                <script src="Bootstrap/js/bootstrap.js"></script>
                <script src="Bootstrap/js/scripts.js"></script>
@@ -12,10 +12,57 @@
               
      </head>
 
+      <script type="text/javascript">
+            $(document).ready(function() 
+            {
+                            
+             $('#button').submit(function () {
+               
+               array_select=$('#couloir select');
+
+               array_couloir=$('#couloir .code_coul');
+               var tab_select=[];
+
+               var tab_couloir=[];
+               
+
+               for (var i = 0; i < array_select.length; i++) 
+               {
+                 tab_select.push(array_select[i].value);
+               }
+               
+               for (var i = 0; i < array_couloir.length; i++) 
+               {
+               
+                     tab_couloir.push(array_couloir[i].innerHTML);
+                 }
+
+                 
+
+
+
+               
+
+                 $.ajax({
+                          url : "index.php?action=set_couloir", // on donne l'URL du fichier de traitement
+                          type : "POST", // la requête est de type POST
+                          data : "tab_select="+tab_select+"&tab_couloir="+tab_couloir   //  on envoie nos données                
+
+                       });
+
+             });
+
+       } );
+        
+
+
+
+      </script>
+
      <style type="text/css">
 
          .form-control{width:110px;margin: 3px;}
-         #tableau{width: 70%;
+         table{width: 50%;
          }
          tr{height:20px;
             width:120px;}
@@ -40,6 +87,7 @@
                       <div class="modal-body">
                            Maintenant l'etape qui suit consiste a modifier les chambre ne se trouvant pas au bon etage
                            ou de supprimer les chambres en exces .
+                           Il faut aussi ajouter le genre des habitants des couloirs.
 
                       </div>
 
@@ -47,7 +95,99 @@
               </div> 
          </div>
 
-           <div class="row">
+
+
+           
+             <div id='couloir' class="row">
+             
+
+                <caption >Liste des couloirs du <?php echo$nom_pav?></caption>
+
+                <table  class='table table-striped table-bordered '>
+                  
+                     <thead>
+                               <th>Code du couloir</th>      
+                               <th>Position</th>
+                               <th>Niveau</th> 
+                               <th>Genre</th>
+                               
+                        
+                     </thead>
+
+                                                          
+
+                       <tbody>
+                            
+                     <?php
+                     
+                      
+                      foreach ($array_couloir as $key)
+                       {
+                          
+                           echo "<tr >";                                                   
+
+                           echo "<td class='code_coul'>".$key['Code_Couloir']."</td>" ;
+
+                           echo "<td>".$key['position_couloir']."</td>" ;
+
+                           
+
+                            $niveau=intval(substr($key['Ref_Etage'], 1));
+
+                            switch ($niveau) 
+                              {
+                                case 0:
+                                     echo "<td>Rez de chaussee</td>" ;
+                                break;
+                              
+                               default:
+                                 echo "<td>".$niveau."e etage </td>" ;
+                                break;
+                              } 
+
+                            echo "<td><select name[]='genre' ><option value=''>NEANT</option>  <option value='H'>Homme</option> <option value='F'>Femme</option> <option value='M'>Mixte</option></select> </td>" ;         
+
+
+                            
+                            
+                           
+                          echo "</tr>";
+
+                            
+                         
+                         } 
+
+                        
+                      ?> 
+
+                  
+
+
+
+
+                    </tbody>
+
+                   
+                                    
+                 </table>
+
+
+             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           <div class="row" style='margin-top:60px'>
                
              <div class="col-lg-offset-5" style='margin-bottom:20px'>
                 <caption >Liste chambre du <?php echo$nom_pav?></caption>
@@ -140,22 +280,25 @@
 
 
 
+
+
+
                            
                    
                  
              
-               
+         <?php require_once 'footer.php';?>      
                  
-           </div>
+      </div>
 
        
 
 
-  		</div>
+  		
 
 
 
-  	</div>
+  	
 
 
   </body>

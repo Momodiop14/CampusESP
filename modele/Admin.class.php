@@ -1,5 +1,5 @@
 <?php
-  require_once 'modele/User.class.php';
+   require_once 'modele/User.class.php';
    require_once 'modele/Base.class.php';
 
 
@@ -23,10 +23,7 @@
        $req=$bdd->prepare("insert into ".$table." (Login_".$table.",Mot_pass_".$table.",prenom_".$table.",nom_".$table.",date_naissance_".$table.",sexe_".$table.") values (?,?,?,?,?,?)");
        $req->execute(array($this->utilisateur->login,sha1($this->utilisateur->password),$this->utilisateur->prenom,$this->utilisateur->nom,$this->utilisateur->date_naissance,$this->utilisateur->genre));
 
-       #var_dump($this->utilisateur);
-       var_dump($req);
-       #var_dump( $bdd);
-       var_dump($this->utilisateur->login);
+     
   	}
   }
 

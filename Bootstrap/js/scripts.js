@@ -43,12 +43,12 @@ $(document).ready(function ()
               {
                   var id = encodeURIComponent( $(this).parents('tr').attr('id') );
                   param1=$('#'+id+' td input:eq(0)').val();
-                  param2=$('#'+id+' td input:eq(1)').val();
+                
                   
                  $.ajax({
                           url : "index.php?action=set_chambre", // on donne l'URL du fichier de traitement
                           type : "POST", // la requête est de type POST
-                          data : "param0="+id+"&param1="+param1+"&param2="+param2  //  on envoie nos données                
+                          data : "param0="+id+"&param1="+param1  //  on envoie nos données                
 
                        });
               }

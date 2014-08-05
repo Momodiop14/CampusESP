@@ -27,20 +27,36 @@
 					  
 					  public function CreatePavillon ()
 					  
-					     {
+					      {
 
 					     	  
 					  	 	  $req=Base::getBDD()->prepare('insert into pavillon (nom_pavillon,niveau_etude_resident) values (?,?)');
 					  	      $req->execute(array($this->nomPavillon,$this->niveau_resident));
 
-					     }
+					  	      $req=Base::getBDD()->prepare('select max(idPavillon) as max from pavillon');
+					  	      $req->execute();
+					  	      $id=$req->fetchAll();
+
+					  	                                     
+					  	      return (intval($id[0]['max']));
+
+					      }
 
 					  
 
-					  public static function UpdatePavillon($value='')
-					  {
-					  	
-					  }
+					  public static function getCouloir($idpav)
+					       {
+
+					       	   	$req=Base::getBDD()->prepare(' SELECT Code_Couloir, position_couloir,Ref_Etage 
+
+					       	   		FROM couloir, etage WHERE Ref_Etage = Code_Etage AND Ref_Pavillon=:pav');
+
+			                 	$req->execute(array(':pav'=>$idpav)); 
+			                	$lignes=$req->fetchAll();
+			                
+			                	return $lignes;
+					    	
+					       }
 
 					   public function DeletePavillon($nom_pav)
 					      {

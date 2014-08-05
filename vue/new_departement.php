@@ -32,10 +32,7 @@
 
 
          }
-
-
-
-      ?>
+?>
 
       <section class='col-lg-12 col-lg-offset-3'>
            
@@ -57,7 +54,7 @@
                            <div class="col-xs-12">
                                <input class='form-control ' name="nom_dept" placeholder='Nom Departement' required>
                            </div>
-                           <div class="col-xs-10">
+                           <div class="col-xs-12">
                                <input class='form-control 'type='number' min='1' max='8' name="nb_option" placeholder="Nombre d'option du departement" required>
                            </div>
                     
@@ -82,12 +79,12 @@
 
        </section>
 
-
+         <?php require_once 'footer.php';?>
   		</div>
 
 
 
-  	</div>
+  
 
 
   </body>

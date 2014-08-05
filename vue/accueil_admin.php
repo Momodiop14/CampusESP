@@ -19,13 +19,25 @@
     <?php 
 
            require_once 'menu_admin.php' ;
-            if ($_SESSION['compt_visit']==1) //on visite pour la premiere fois la page
+           
+           if ($_SESSION['compt_visit']==1) //on visite pour la premiere fois la page
             {
-              echo'<div class="alert alert-success" role="alert">Votre session est ouverte avec succes !!!</div>';
+              echo '<div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <strong>Ouverture de session reussie!!!! Bienvenue </strong> </div>';
               $_SESSION['compt_visit']++;
             }
+          else
+            if (isset($succes)) 
+
+             {
+              echo '<div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <strong>Votre derniere operation a ete effectuee avec succes!!!!  </strong> </div>';
 
            
+             }
+             
 
      ?>
   </div>
@@ -33,7 +45,7 @@
 	 
     
 
-
+     <?php require_once 'footer.php';?>
   	</div>
     
 

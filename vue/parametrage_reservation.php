@@ -3,7 +3,7 @@
 
      <head>
              <meta name="viewport" content="width=device-width, initialscale=1.0" />
-     	     <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
+     	       <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
              <script src="js/jquery.js"></script>
              <script src="Bootstrap/js/bootstrap.js"></script>
                          
@@ -15,7 +15,17 @@
 
   <body>
   	<div class="container">
-      <?php require_once('menu_admin.php'); ?>
+      <?php require_once('menu_admin.php'); 
+
+      if ( isset($error) ) //on visite pour la premiere fois la page
+            {
+              
+              echo '<div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <strong>Echec du parametrage!!!! Veuilez bien verifier cos parametres</strong> </div>';
+              
+            }
+      ?>
   	
       <section class='col-lg-12 col-lg-offset-3'>
            
@@ -85,7 +95,7 @@
   		</div>
 
 
-
+     <?php require_once 'footer.php';?>
   	</div>
 
 

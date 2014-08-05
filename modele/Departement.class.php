@@ -22,27 +22,37 @@
 				 
 				  public static function CreateDept($name)
 					  {
-					  	 	  $base=Base::getBDD();
-					  	 	  $req=$base->prepare('insert into departement (nom_departement) values (:name)');
+					  	 	  
+					  	 	  $req=Base::getBDD()->prepare('insert into departement (nom_departement) values (:name)');
 					  	      $req->execute(array('name'=>$name));
-					  	      $count=$req->rowCount();
-					  	      return $count;
-					  }
-
-					   public function UpdatePavillon($value='')
-					  {
-					  	
-					  }
-
-					   public static function DeletePavillon($nom_pav)
-					      {
-					  	    
-					      }
-				         
-				       public static function getPavillon($name_pav)
-					  {
 					  	     
+					  	      $req=Base::getBDD()->prepare('select max(Id_dept) as max from departement');
+					  	      $req->execute();
+					  	      $id=$req->fetchAll();
+
+					  	                                     
+					  	      return (intval($id[0]['max']));
+					  	      
 					  }
+
+					  
+
+					   public static function getDepts()
+					      {
+					 	      $req=Base::getBDD()->prepare(' select * from departement ');
+					  	      
+					  	      $req->execute();
+					  	      
+					  	      $tab=$req->fetchAll();
+
+					  	      return $tab ;
+					      }
+					
+					      
+					  	    
+					      
+				         
+				     
 			}
 
 

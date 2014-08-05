@@ -3,9 +3,9 @@
 
      <head>
              <meta name="viewport" content="width=device-width, initialscale=1.0" />
-     	       <link href="../Bootstrap/css/bootstrap.css" rel="stylesheet">
-             <script src="../js/jquery.js"></script>
-             <script src="../Bootstrap/js/bootstrap.js"></script>
+     	       <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
+             <script src="js/jquery.js"></script>
+             <script src="Bootstrap/js/bootstrap.js"></script>
 
              
 
@@ -28,38 +28,21 @@
              
              <div class="panel-body">
               
-                   <form id="formation" method="POST" onsubmit='validation_formation()'>
+                   <form action='index.php?action=save_formation' method="POST" >
                     
                     <div class="row">
 
-                           <div class="col-xs-10">
-                               <input class='form-control' id="nom_dept" placeholder='Nom Formation' required>
+                           <div class="col-lg-offset-2 col-xs-8">
+                           
+                               <input class='form-control' name="nom_formation" placeholder='Nom Formation ex : DUT1' autocomplete='off' required>
+                           
                            </div>    
                   
                    </div>
 
-                   <div class='row'>
-                            
-                             <h3 class='col-xs-offset-2'>Options Disponibles</h3>
-                                                                                     
-                     </div> 
-
-
-                      <div class="row">
-
-                           <div class="col-xs-3 col-xs-offset-3">
-                               <label for='nom_opt' >Telecom</label>
-                           </div> 
-
-                           <div class="col-xs-offset-1">
-                               <input type='checkbox' id="nom_opt" placeholder='Nom Formation' required>
-                           </div>    
-                  
-                   </div> 
-
-                                    
+                                                       
   
-                   <button id='valider' type="submit" class="btn btn-primary col-lg-offset-4 " > 
+                   <button id='valider' type="submit" class="btn btn-primary col-lg-offset-5 " > 
                     <span class='glyphicon glyphicon-thumbs-up'></span> valider
                   </button>
 
@@ -75,7 +58,7 @@
 
        </section>
 
-
+       <?php require_once 'footer.php';?>
   		</div>
 
 

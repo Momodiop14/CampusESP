@@ -22,9 +22,40 @@
 		    	 $this->ctr_pav=new Ctr_Batiment();
 		    	 $this->ctr_agent= new Ctr_Agent();
 		    	 $this->ctr_sco=new Ctr_Scolarite();
-		    	  $this->ctr_reser=new Ctr_Reservation();
+		    	 $this->ctr_reser=new Ctr_Reservation();
 
 		    }
+
+
+		     public function Redirirect ()
+		     {
+		     	
+		     	 if (isset($_SESSION['login'])) 
+		     	 
+		     	 {
+
+		     	 	switch ($_SESSION['type_user']) 
+		     	 	 {
+		     	 		
+		     	 		case 'admin':
+		     	 			      $this->ctr_admin->page_accueil_admin();
+		     	 			break;
+		     	 		
+		     	 		case 'agent':
+		     	 			# code...
+		     	 			break;
+
+		     	 		 case 'guichetier':
+		     	 			# code...
+		     	 			break;
+
+		     	 	 } 
+		     	 }
+
+		     	 else
+		     	 	$this->ctr_accueil_auth->page_authentification();
+
+		     }
 		  
 		  // Traite une requête entrante
 		  public function routerRequete() 
@@ -53,15 +84,7 @@
 									                   	
 									                   	 $this->ctr_accueil_auth->connexion($_REQUEST['login'],$_REQUEST['password'],$_REQUEST['user']);
 									                 }
-									            else
-									              {
-									              	 session_start();
-									              	 
-									              	 if ( isset($_SESSION['login']) )									              	 
-									              	 	 $this->ctr_admin->page_accueil_admin();
-                                                       else
-                                                        $this->ctr_accueil_auth->page_authentification();
-                                                   }
+									            
                                               } 
 					      	 break;
 
@@ -71,22 +94,44 @@
 
 					      	  case 'save_parametre'  :
 					      	                      {
-	                                                     session_start();
-										            if ( (isset($_SESSION['login'])) && (isset($_REQUEST['heure_begin'])) )
+	                                                     
+	                                                  session_start();
+										            
+
+										             if ( (isset($_SESSION['login'])) && (isset($_REQUEST['heure_begin'])) )
 										                 {
 										                   	
 										                   	 $this->ctr_reser->parametrage_reservation($_REQUEST['date_begin'],$_REQUEST['date_fin'],$_REQUEST['heure_begin'],$_REQUEST['heure_fin']);
 										                 }
-										            else
-										              {
-										              	 session_start();
+										              else
+										                  {
+										              	
 										              	 
-										              	 if ( isset($_SESSION['login']) )									              	 
-										              	 	 $this->ctr_admin->page_accueil_admin();
-	                                                       else
-	                                                        $this->ctr_accueil_auth->page_authentification();
-	                                                   }
+										              	   if ( isset($_SESSION['login']) )									              	 
+										              	 	   $this->ctr_admin->page_accueil_admin();
+	                                                         else
+	                                                           $this->ctr_accueil_auth->page_authentification();
+	                                                     }
                                                   }   
+					      	 break;
+
+
+					      	case 'set_couloir':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] )) && (isset($_REQUEST['tab_select'])) && (isset($_REQUEST['tab_couloir']))   )
+									        
+									              	 {
+									              	 	 $this->ctr_pav->setCouloir($_REQUEST['tab_couloir'],$_REQUEST['tab_select']);
+                                                     }
+                                                    else
+                                                   	  // il y a aucun parametre,affichage de l'accueil
+		           	                                  $this->Redirirect();
+
+		           	                             
+					      	             }
+					      	 
 					      	 break;
 
 
@@ -100,13 +145,14 @@
 									              	 	 $this->ctr_sco->page_new_dept();
                                                      }
                                                     else
-                                                   	// il y a aucun parametre,affichage de l'accueil
-		           	                                $this->ctr_accueil_auth->page_authentification();
+                                                   	  // il y a aucun parametre,affichage de l'accueil
+		           	                                  $this->Redirirect();
 
 		           	                             
 					      	             }
 					      	 
 					      	 break;
+
 
 					      	   case 'save_dept':
 					      	             {
@@ -118,27 +164,133 @@
 									              	 	 $this->ctr_sco->save_new_dept($_REQUEST['nom_dept'],intval($_REQUEST['nb_option']) );
                                                      }
                                                     else
-                                                   	// il y a aucun parametre,affichage de l'accueil
-		           	                                $this->ctr_accueil_auth->page_authentification();
+                                                    	if (isset($_SESSION['login'])) 
+                                                    	
+                                                    		 $this->ctr_sco->page_new_dept();
+                                                    	 else
+                                                   	          $this->Redirirect();
 
 		           	                             
 					      	             }
 					      	 
 					      	 break;
 
+					      	 case 'new_option':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] )) &&( isset($_SESSION['type_user'])=='admin') )
+									        
+									              	 {
+									              	 	 $this->ctr_sco->page_new_option();
+                                                     }
+                                                    else
+                                                   	// il y a aucun parametre,affichage de l'accueil
+		           	                                   $this->Redirirect();
+
+		           	                             
+					      	             }
+
+					      	    break;
+					      	 
+
+					      	  case 'create_opt':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] ))  && (isset($_REQUEST['param0'] )) )
+									        
+									              	 {
+									              	 	 $this->ctr_sco->save_new_opt( $_REQUEST['param0'],$_REQUEST['param1'],$_REQUEST['param2'],$_REQUEST['param3'] ) ;
+                                                     }
+                                                    else
+                                                    	if (isset($_SESSION['login'])) 
+                                                    	{
+                                                    		$this->ctr_sco->page_new_dept();
+                                                    	}
+                                                    	else
+                                                   	    // il y a aucun parametre,affichage de l'accueil
+		           	                                       $this->Redirirect();
+
+		           	                             
+					      	             }
+					      	 
+					      	 break;
+
+
+					      	   case 'new_formation':
+					      	             {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] ))  )
+									        
+									              	 {
+									              	 	 $this->ctr_sco->new_formation() ;
+                                                     }
+                                                    else
+                                                    	 
+                                                    	 // il y a aucun parametre,affichage de l'accueil
+		           	                                     $this->ctr_accueil_auth->page_authentification();
+
+		           	                             
+					      	             }
+					      	 
+					      	 break;
+                                      
+                               case  'save_formation' :
+                                                    {
+                                                           session_start();
+
+                                                           if( (isset($_SESSION['login'] ))  && (isset($_REQUEST['nom_formation'] )))
+									        
+												               {
+												              	 	 $this->ctr_sco->save_new_formation($_REQUEST['nom_formation'] ) ;
+			                                                    }
+			                                                    else
+			                                                    	if (isset($_SESSION['login'])) 
+			                                                    	     
+			                                                    	     $this->ctr_sco->new_formation();
+			                                                    	
+			                                                    	else
+			                                                   	// il y a aucun parametre,affichage de l'accueil
+					           	                                $this->ctr_accueil_auth->page_authentification();
+
+                                                    }
+                                          break;
+
+                                 case  'reserver' :
+                                                    {
+                                                           session_start();
+
+                                                           if( (isset($_SESSION['login'] ))  && ($_SESSION['type_user']='agent' ) ) 
+									        
+												                {
+												              	 	 $this->ctr_reser->verification();
+												                 }
+													                                                    else
+													                                                    	if (isset($_SESSION['login'])) 
+													                                                    	     
+													                                                    	     $this->ctr_sco->new_formation();
+													                                                    	
+													                                                    	else
+													                                                   	// il y a aucun parametre,affichage de l'accueil
+															           	                                $this->ctr_accueil_auth->page_authentification();
+
+                                                    }
+                                          break;
                                
                               case 'Reservation':
 					      	             {
                                                session_start();
 
-                                                 if( (isset($_SESSION['login'] )) )
+                                                 if( (isset($_SESSION['login'] )) && ($_SESSION['type_user']=='admin' ) )
 									        
 									              	 {
 									              	 	 $this->ctr_reser->page_reservation();
                                                      }
                                                     else
                                                    	// il y a aucun parametre,affichage de l'accueil
-		           	                                $this->ctr_accueil_auth->page_authentification();
+		           	                                $this->Redirirect();
 
 		           	                             
 					      	             }
@@ -262,9 +414,9 @@
 					      	              {
 					      	              	  session_start();
 
-                                             if( (isset($_SESSION['login'] )) &&(isset($_REQUEST['param0'])) &&(isset($_REQUEST['param1'])) &&(isset($_REQUEST['param2'])) )
+                                             if( (isset($_SESSION['login'] )) &&(isset($_REQUEST['param0'])) &&(isset($_REQUEST['param1'])) )
 									              	 {
-									              	   $this->ctr_pav->set_chambre($_REQUEST['param0'],$_REQUEST['param1'],$_REQUEST['param2']);
+									              	   $this->ctr_pav->set_chambre($_REQUEST['param0'],$_REQUEST['param1']);
                                                      }
                                                  else
 

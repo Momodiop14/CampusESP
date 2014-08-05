@@ -33,16 +33,25 @@
 			      	return $ligne;
 	       }
 
-      public static function setChambre($id,$chamb,$couloir) //methode retournant les chambres d'un pavillon
+      public static function setChambre($id,$chamb) //methode retournant les chambres d'un pavillon
          {
-              var_dump($couloir);
-              var_dump($chamb);
+                 
+              var_dump( "update chambre set Code_chambre=".$chamb." where enregistrement_chambre=".$id);
+              Base::getBDD()->exec("update chambre set Code_chambre='".$chamb."' where enregistrement_chambre=".$id);
+             
+              $count=Base::getBDD()->rowCount(); 
+              return $count;
               
-              
-              $query=Chambre::$base->prepare('update chambre set Ref_Couloir=? and Code_chambre=? where enregistrement_chambre=?');
-              $query->execute(array($couloir,$chamb,$id));
-               
-              #return $count;
+         }
+
+      public static function setCouloir($id,$chamb) //methode retournant les chambres d'un pavillon
+         {
+                 
+              var_dump( "update chambre set Code_chambre=".$chamb." where enregistrement_chambre=".$id);
+              $query=Base::getBDD()->exec("update chambre set Code_chambre='".$chamb."' where enregistrement_chambre=".$id);
+              #$query->execute(array($chamb,$id));
+              #$count=$query->rowCount(); 
+              return $count;
               
          }
 
