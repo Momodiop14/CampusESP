@@ -39,8 +39,7 @@
               
               $count=Base::getBDD()->exec("update chambre set Code_chambre='".$chamb."' where enregistrement_chambre=".$id);
              
-              return $count;
-              
+                           
          }
 
       public static function setCouloir($id,$chamb) //methode retournant les chambres d'un pavillon

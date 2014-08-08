@@ -106,28 +106,18 @@
                               
                               }
 
-
-
-
-
-
-
-
-						   
-
-
-					  }
+                     }
 
 					  public function setCouloir($array_couloir,$array_genre)
 					  {
                          
-					  	 $tab_couloir=explode(",", $array_couloir);
-					  	 $tab_genre=explode(",",$array_genre);
-					  	
-					  	 for ($i=0; $i <count($tab_couloir); $i++) 
-					  	 { 
-					  	 	Couloir::setCouloir($tab_couloir[$i],$tab_genre[$i]);
-					  	 }
+						  	 $tab_couloir=explode(",", $array_couloir);
+						  	 $tab_genre=explode(",",$array_genre);
+						  	
+						  	 for ($i=0; $i <count($tab_couloir); $i++) 
+						  	 { 
+						  	 	Couloir::setCouloir($tab_couloir[$i],$tab_genre[$i]);
+						  	 }
 					      
 					  }
 

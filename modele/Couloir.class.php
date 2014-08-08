@@ -40,8 +40,11 @@
           public static function setCouloir($code_couloir,$val_genre)
 
             {
-               $req=Base::getBDD()->prepare("update couloir set genre_couloir=? where Code_Couloir=?");
-               $req->execute(array($val_genre,$code_couloir));
+
+               $count=Base::getBDD()->exec("update couloir set genre_couloir='".$val_genre."' where Code_Couloir='".$code_couloir."'");
+              
+               if($count>0)
+                   echo "OK";
 
                
             }
