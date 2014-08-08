@@ -11,14 +11,16 @@ class Etudiant
  	 		$nationnalite,
  	 		$formation,
  	 		$option,
- 	 		$chambre;
+ 	 		$chambre,
+            $titulaire,
+            $sexe;
 
  	public function __construct()
  	{
 
  	}
 
- 	public function hydrate($identifiant,$nom,$prenom,$date_naissance,$lieu_naissance,$adresse,$nationnalite,$formation,$option,$chambre)
+ 	public function hydrate($identifiant,$nom,$prenom,$date_naissance,$lieu_naissance,$adresse,$nationnalite,$formation,$option,$chambre,$titulaire,$sexe)
  	{
         $this->identifiant=$identifiant;
  		$this->nom=$nom;
@@ -30,171 +32,277 @@ class Etudiant
  		$this->formation=$formation;
  		$this->option=$option;
         $this->chambre=$chambre;
+        $this->titulaire=$titulaire;
+        $this->sexe=$sexe;
  	} 		
 
- 	public static function getEtudiant($identifiant) 
+ 	public function getEtudiant($identifiant) 
  	{   $bdd=Base::getBDD();
- 		$req=$bdd->prepare('SELECT * from ETUDIANT WHERE identifiant= :id');
- 		$req->execute(array('id'=>$identifiant));
+ 		$req=$bdd->prepare('SELECT * from ETUDIANT WHERE identifiant= ?');
+ 		$req->execute(array($identifiant));
  		$ligne=$req->fetchall();
          
- 		if (count($ligne==1))
+ 		if (count($ligne)!=0)
  		{
- 			$etd=$ligne[0];
- 			$etudiant= new Etudiant();
-            
-            $etudiant->hydrate($identifiant,$etd['nom'],$etd['prenom'],$etd['date_naissance'],$etd['lieu_naissance'],$etd['adresse'],$etd['nationnalite'],$etd['formation'],$etd['option'],$etd['chambre']);
- 		
-            return $etudiant;
+ 		     	$etd=$ligne[0];
+ 		     
+                
+                 $this->hydrate($identifiant,$etd['nom'],$etd['prenom'],$etd['date_naissance'],$etd['lieu_naissance'],$etd['adresse'],$etd['nationalite'],$etd['formation_etudiant'],$etd['ooption_etudiant'],$etd['chambre_habite'],$etd['titulaire'],$etd['sexe']);
+ 		        
+                return 'oui';
  		} 
- 		else return false;
+ 		else return 'non';
 
- 	}		
+ 	}	
 
-    public function setNom($identifiant,$nom)
+    public function getIdentifiant()
     {
-        $bdd=Base::getBDD();
-        $req=$bdd->prepare('UPDATE from etudiant set nom= :nom WHERE identifiant= :id');
-        $req->execute(array('nom'=>$nom,
-                            'id'=>$identifiant));
+        return $this->identifiant;
+    }	
+
+    public function getNom()
+    {
+       return $this->nom ;
 
     }
 
-    public function setPrenom($identifiant,$prenom)
+    public function getPrenom()
     {
-        $bdd=Base::getBDD();
-    	$req=$bdd->prepare('UPDATE from etudiant set prenom= :prenom WHERE identifiant= :id');
-        $req->execute(array('pren=nom'=>$prenom,
-                            'id'=>$identifiant));
+       return $this->prenom;
+    }
+
+    public function getDateNaissance()
+    {
+        return $this->date_naissance;
 
     }
 
-    public function setDateNaissance($identifiant,$date_naissance)
+    public function getLieuNaissance()
     {
-        $bdd=Base::getBDD();
-    	$req=$bdd->prepare('UPDATE from etudiant set date_naissance= :date_naissance WHERE identifiant= :id');
-        $req->execute(array('date_naissance'=>$date_naissance,
-                            'id'=>$identifiant));
-
+       return $this->lieu_naissance;
     }
 
-    public function setLieuNaissance($identifiant,$lieu_naissance)
+    public function getAdresse()
     {
-        $bdd=Base::getBDD();
-    	$req=$bdd->prepare('UPDATE from etudiant set nom= :lieu_naissance WHERE identifiant= :id');
-        $req->execute(array('nom'=>$lieu_naissance,
-                            'id'=>$identifiant));
-
+        return $this->adresse;
     }
 
-    public function setAdresse($identifiant,$adresse)
+    public function getFormation()
     {
-        $bdd=Base::getBDD();
-    	$req=$bdd->prepare('UPDATE from etudiant set adresse= :adresse WHERE identifiant= :id');
-        $req->execute(array('adresse'=>$adresse,
-                            'id'=>$identifiant));
-
+       return $this->formation;
     }
 
-    public function setFormation($identifiant,$formation)
+    public function getNationnalite()
     {
-        $bdd=Base::getBDD();
-    	$req=$bdd->prepare('UPDATE from etudiant set formation= :formation WHERE identifiant= :id');
-        $req->execute(array('formation'=>$formation,
-                            'id'=>$identifiant));
-
+        return $this->nationnalite;
     }
 
-    public function setNationnalite($identifiant,$nationnalite)
+    public function getChambre()
     {
-        $bdd=Base::getBDD();
-        $req=$bdd->prepare('UPDATE from etudiant set nationnalite= :nationnalite WHERE identifiant= :id');
-        $req->execute(array('nationnalite'=>$nationnalite,
-                            'id'=>$identifiant));
-
+        return $this->chambre;
     }
 
-    public function setChambre($identifiant,$chambre)
+    public function getOption()
     {
-        $bdd=Base::getBDD();
-        $req=$bdd->prepare('UPDATE from etudiant set chambre= :chambre WHERE identifiant= :id');
-        $req->execute(array('nom'=>$chambre,
-                            'id'=>$identifiant));
+       return $this->option;
 
     }
-
-    public function setOption($identifiant,$option)
+    public function getTitulaire()
     {
-        $bdd=Base::getBDD();
-        $req=$bdd->prepare('UPDATE from etudiant set ooption= :option WHERE identifiant= :id');
-        $req->execute(array('option'=>$option,
-                            'id'=>$identifiant));
-
+        return $this->titulaire;
     }
-    public function recherche($tableau)
-       {
 
-      }
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
 
     public function saveNewEtudiant()
     {
         $bdd=Base::getBDD();
         
           
-    	$req=$bdd->prepare("insert into etudiant (identifiant,nom,prenom,date_naissance,lieu_naissance,adresse,nationalite,ooption_etudiant,chambre_habite,formation_etudiant) values( ?,?,?,?,?,?,?,?,?,?)"); 
+    	$req=$bdd->prepare("insert into etudiant (identifiant,nom,prenom,date_naissance,lieu_naissance,adresse,nationalite,ooption_etudiant,chambre_habite,formation_etudiant,titulaire,sexe) values( ?,?,?,?,?,?,?,?,?,?,?,?)"); 
          
-        #echo 'INSERT INTO ETUDIANT (identifiant,nom,prenom,date_naissance,lieu_naissance,adresse,nationalite,
-        #ooption_etudiant,chambre_habite,formation_etudiant)  
-        #VALUES( "'.$this->identifiant.'","'.$this->nom.'","
-         #                   '.$this->prenom.'","'.$this->date_naissance.'","'.$this->lieu_naissance.'","'.$this->adresse.'","'.$this->nationnalite.'","'.$this->option.'","'.$this->chambre.'","'.$this->formation.'"); ';
-           #var_dump($this->identifiant);
+      
           
           
-          
-          $req->execute(array('"'.$this->identifiant.'"',$this->nom,$this->prenom,$this->date_naissance,$this->lieu_naissance,$this->adresse,$this->nationnalite,intval($this->option),intval($this->chambre),$this->formation));
+          $req->execute(array('O'.$this->identifiant,$this->nom,$this->prenom,$this->date_naissance,$this->lieu_naissance,$this->adresse,$this->nationnalite,intval($this->option),intval($this->chambre),$this->formation,$this->titulaire,$this->sexe));
     					
+      
+      // CREATION DES LOYERS POUR L'ETUDIANT EN COURS POUR CHAQUE MOIS   
 
-        /* $req=$bdd->prepare('select * from etudiant');
-                
-          $req->execute(); 
+         $req2=$bdd->prepare('SELECT libelle_mois from mois ');
+         $req2->execute();
 
-         $row=$req->fetchall();
-         var_dump($row);*/
+         $rows=$req2->fetchall();
+
+        if($req->rowCount()!=0)
+        {    
          
-         
+         foreach ($rows as $row)
+         {
+           
 
+       $req1=$bdd->prepare('INSERT INTO LOYER (id_etudiant,mois,paye) VALUES (?,?,?) ');
+       $req1->execute(array('O'.$this->identifiant,$row['libelle_mois'],false));  
+
+
+         }
+        } 
+
+         return $req->rowCount();
         
 
     }
 
-    public function saveEtudiant()
+    public function saveEtudiant($identifiant1)
     {
         $bdd=Base::getBDD();
-        $req=$bdd->prepare('UPDATE ETUDIANT set identifiant= :identifiant,nom=:nom,prenom=:prenom, date_naissance= :date_naissance, lieu_naissance=:lieu_naissance
-            adresse=:adresse, nationnalite=:nationnalite, ooption_etudiant= :option, chambre_habite= :chambre formation_etudiant= :formation where identifiant=:identifiant');
+        $req=$bdd->prepare('UPDATE ETUDIANT set identifiant= ?,nom=?,prenom=?, date_naissance= ?, lieu_naissance=?,
+            adresse=?, nationalite=?, ooption_etudiant= ?, chambre_habite= ?, formation_etudiant= ?,titulaire= ?, sexe= ? where identifiant=?');
 
-        $req->execute(array('identifiant'=> $etudiant->identifiant,
-                            'nom'=>$this->nom,
-                            'prenom'=>$this->prenom,
-                            'date_naissance'=>$this->date_naissance,
-                            'lieu_naissance'=>$this->lieu_naissance,
-                            'adresse'=>$this->adresse,
-                            'nationnalite'=>$this->nationnalite,
-                            'option'=>$this->option,
-                            'chambre'=>$this->chambre,
-                            'formation'=>$this->formation));
+        $req->execute(array( 'O'.$this->identifiant,
+                            $this->nom,
+                            $this->prenom,
+                            $this->date_naissance,
+                            $this->lieu_naissance,
+                            $this->adresse,
+                            $this->nationnalite,
+                            $this->option,
+                            $this->chambre,
+                            $this->formation,
+                            $this->titulaire,
+                            $this->sexe,
+                            $identifiant1
+                            ));
     }
 
-    public function __destruct()
+    public function getOptions()
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT * from ooption');
+        $req->execute();
+
+        $rep=$req->fetchall();
+
+        return $rep;
+
+    }
+
+    public function getOptionBase($id)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT * from ooption WHERE id_Option=? ');
+        $req->execute(array($id));
+        $rep=$req->fetchall();
+
+        return $rep[0]; 
+    }
+
+    public function getFormations()
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT * from formations');
+        $req->execute();
+
+        $rep=$req->fetchall();
+        return $rep;
+    }
+
+
+    public function getChambreBase($id)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT * from chambre WHERE enregistrement_chambre=? ');
+        $req->execute(array($id));
+        $rep=$req->fetchall();
+
+        return $rep[0]; 
+    }
+
+    public function paiement()
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT mois,paye FROM loyer,mois WHERE mois=libelle_mois and id_etudiant=? order by num_mois;');
+        $req->execute(array($this->identifiant));
+
+        $rep=$req->fetchall();
+        return $rep;
+    }
+
+    public function delete()
     {
         $bdd=Base::getBDD();
     	$req=$bdd->prepare('DELETE FROM ETUDIANT WHERE identifiant= :identifiant');
     	$req->execute(array('identifiant'=>$this->identifiant));
     }
+
+    public function initialiseMois($identifiant1)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('UPDATE loyer set paye=false where id_etudiant=?');
+        $req->execute(array($identifiant1));
+    }
+
+    public function paieMois($mois,$identifiant1)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('UPDATE loyer set paye=true WHERE id_etudiant=? AND mois=?');
+        $req->execute(array($identifiant1,$mois));
+    }
+
+    public function creerRecu($tab_mois,$identifiant,$login)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('INSERT INTO recu (date_creation_recu , NoGuichetier) VALUES (now(),?) ');
+        $req->execute(array( $login ));
+
+        $req1=$bdd->prepare('SELECT max(No_recu) as id_recu from recu ');
+        $req1->execute();
+        $rep=$req1->fetchall();
+
+        $rep1=$rep[0];
+        
+
+    
+        
+        foreach ($tab_mois as $mois)
+        { 
+            $req2=$bdd->prepare("UPDATE loyer set Num_recu=?, paye=true WHERE id_etudiant=? AND mois=? ");
+            $req2->execute(array($rep1['id_recu'],'O'.$identifiant,$mois));
+        }
+
+         return $rep1['id_recu'];
+
+    }
+
+    public function getChambres($sexe)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT Code_chambre,enregistrement_chambre,position_couloir,niveau_Etage,nom_pavillon from chambre ch,etage et, couloir co, pavillon pa 
+                                              WHERE
+                                    ch.Ref_Couloir=co.Code_Couloir
+                                    and co.Ref_etage=et.Code_Etage
+                                    and et.Ref_pavillon=pa.nom_pavillon
+                                    and (co.genre_couloir="X" or co.genre_couloir= ?) ');
+        $req->execute(array($sexe));
+
+        $rep=$req->fetchall();
+
+        return $rep;
+    }
+
+    public function getOccupants($chambre)
+    {
+        $bdd=Base::getBDD();
+        $req=$bdd->prepare('SELECT nom, prenom, formation_etudiant,nom_Option from etudiant,ooption where 
+                 etudiant.ooption_etudiant=ooption.id_Option and etudiant.chambre_habite= ? ');
+
+        $req->execute(array($chambre));
+        $rep=$req->fetchall();
+
+        return $rep;
+    }
+
 }
-
-
-// RECHERHER ETUDIANT PAR NOM PRENOM
-
-// UNE FONCTION SET GENERALE
-

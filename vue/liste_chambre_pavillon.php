@@ -5,11 +5,9 @@
              <meta name="viewport" content="width=device-width ;text/html;  charset='utf-8' "/>
      	         <script src="js/jquery.js"></script>
                <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
-               <link href="media/css/jquery.dataTables.css" rel="stylesheet">
                <script src="Bootstrap/js/bootstrap.js"></script>
                <script src="Bootstrap/js/scripts.js"></script>
-               <script src="media/js/jquery.dataTables.js"></script>
-              
+               
      </head>
 
       <script type="text/javascript">
@@ -62,7 +60,7 @@
      <style type="text/css">
 
          .form-control{width:110px;margin: 3px;}
-         table{width: 50%;
+         table{width: 70%;
          }
          tr{height:20px;
             width:120px;}
@@ -200,11 +198,11 @@
              <div class='row'>
 
                               
-               <form method='POST' action='index.php?action=validate'>
+               <form method='POST' action='index.php?action=validate_set_chambre'>
 
                   
 
-                <table id='tableau' cellpadding='0' cellspacing='0' border='0' class='display'>
+                <table id='tableau' class='table table-striped table-bordered'>
                   <thead>
                      <tr>
                         <th >Numero de la chambre</th>
@@ -231,16 +229,18 @@
                        {
                            $id=$key['enregistrement_chambre'];
 
-                           echo "<tr id='ligne_".$id."'>";                                                   
+                           echo "<tr id='ligne_".$id."'>";   
 
-                           echo "<td><input type='text' class='form-control '   value='".$key["Code_chambre"]."'"."/> </td>" ;
+                           echo "<input name='id_chambre".$count."' type='hidden' value='".$id."'/>";                                               
 
-                           echo "<td><input type='text' class='form-control'   value='".$key["Ref_Couloir"]."'"."/> </td>" ;
+                           echo "<td><input type='text' name='chambre".$count."'  class='form-control no_chambre'   value='".$key["Code_chambre"]."'"."/> </td>" ;
+
+                           echo "<td><input type='text' name='couloir_chambre".$count."' class='form-control'   value='".$key["Ref_Couloir"]."'"."/> </td>" ;
                            
                            
                             
                             echo "<td>
-                                      <span class='btn  icon-update glyphicon glyphicon-floppy-save' title='enregistrer la modification'></span>
+                                      
                                       <span class='btn  icon-delete glyphicon glyphicon-remove ' title='supprimer la ligne choisie'></span>
                                                                   
                                   </td>";
@@ -250,9 +250,11 @@
                             
                             echo "</tr>";
 
-                            
+                           $count++; 
                          
                          } 
+
+                         echo "<input name='count_chamb' type='hidden' value='".$count."'/>";
 
                         
                       ?>

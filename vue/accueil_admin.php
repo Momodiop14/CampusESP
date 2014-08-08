@@ -1,8 +1,8 @@
 <!doctype html>
-
+<html>
 
      <head>
-             <meta name="viewport" content="width=device-width" />
+             <meta name="viewport" content="width=device-width"  />
      	       <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
              <script src="js/jquery.js"></script>
              <script src="Bootstrap/js/bootstrap.min.js"></script>

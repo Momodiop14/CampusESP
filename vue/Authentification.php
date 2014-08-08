@@ -15,8 +15,10 @@
 
             }
             .form-control{margin-bottom: 5%;}
+
+            .container{background-color: white;}
      </style>
-  <body>
+  <body style="background-color: white;">
   	    
         <div class="container">
   		                         

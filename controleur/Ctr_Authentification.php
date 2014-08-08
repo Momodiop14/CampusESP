@@ -40,6 +40,8 @@
                                     case 'agent':
                                         require 'vue/indexe.php';
                                         break;
+                                    case 'guichetier':
+                                        require 'vue/guichetier.php' ;   
                                  }
                              	
                              	

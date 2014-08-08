@@ -17,7 +17,7 @@
                  
              </div>
 
-      </header>
+</header>
 <div class='row '>
 
         <nav class='navbar navbar-default col-xs-offset-2 col-xs-8' role='navigation'>

@@ -12,7 +12,7 @@ CREATE TABLE PAVILLON
 	nom_pavillon varchar(35),
 	niveau_etude_resident varchar(20),
 	CONSTRAINT pk_pavillon primary key (idPavillon),
-	CONSTRAINT un_etudiant
+	CONSTRAINT un_pavillon UNIQUE(nom_pavillon)
 
 );
 
@@ -46,14 +46,16 @@ CREATE TABLE CHAMBRE
 	Code_chambre varchar(20),
 	Ref_Couloir varchar(20),
 	CONSTRAINT pk_chambre primary key(enregistrement_chambre),
-	CONSTRAINT fk_chambre foreign key(Ref_Couloir) references COULOIR(Code_Couloir) on delete cascade
+	CONSTRAINT fk_chambre foreign key(Ref_Couloir) references COULOIR(Code_Couloir) on delete cascade,
+	CONSTRAINT un_chambre UNIQUE(Code_chambre)
 );
 
 CREATE TABLE DEPARTEMENT
 (
 	Id_dept int auto_increment ,
 	nom_departement varchar(30),
-	CONSTRAINT pk_departement primary key (Id_dept)
+	CONSTRAINT pk_departement primary key (Id_dept),
+	CONSTRAINT un_dept UNIQUE(nom_departement)
 
 );
 
@@ -69,7 +71,8 @@ CREATE TABLE OOPTION
 	nom_Option varchar(35),
 	Num_dep int not null,
 	CONSTRAINT pk_option primary key (id_Option),
-	CONSTRAINT fk_option foreign key(Num_dep) references DEPARTEMENT(Id_dept) on delete cascade
+	CONSTRAINT fk_option foreign key(Num_dep) references DEPARTEMENT(Id_dept) on delete cascade,
+	CONSTRAINT un_option UNIQUE(nom_Option)
 );
 
 
@@ -90,7 +93,9 @@ CREATE TABLE ETUDIANT
      nationalite varchar(30),
      CONSTRAINT pk_etudiant primary key (NoEnregistrementEtudiant),
      CONSTRAINT fk_etudiant foreign key (formation_etudiant) references FORMATIONS(Code_Formation) on delete cascade,
-     CONSTRAINT fk_etudiant2 foreign key (ooption_etudiant) references OOption(id_Option) on delete cascade
+     CONSTRAINT fk_etudiant2 foreign key (ooption_etudiant) references OOption(id_Option) on delete cascade ,
+     CONSTRAINT un_etudiant UNIQUE(identifiant),
+     CONSTRAINT fk_etudiant3 foreign key (chambre_habite) references CHAMBRE(enregistrement_chambre) on delete set null 
 );
 
 CREATE TABLE RESERVATION
@@ -205,9 +210,6 @@ CREATE TABLE PARAMETRE_RESERVATION
 
 
 
-alter table etudiant add  CONSTRAINT un_etudiant UNIQUE(identifiant) ;
-
-alter table etudiant add CONSTRAINT fk_etudiant3 foreign key (chambre_habite) references CHAMBRE(enregistrement_chambre) on delete set null ;
      
 
 

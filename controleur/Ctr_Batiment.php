@@ -1,4 +1,4 @@
-<?php
+	<?php
 				require_once('modele/Pavillon.class.php');
 				require_once('modele/Etage.class.php');
 				require_once('modele/Couloir.class.php');
@@ -92,30 +92,11 @@
 
 					   public function set_chambre($id,$chambre)
 					  {
-					  	  $recup_id=explode("_", $id);
-					  	  $ligne=Chambre::setChambre(intval($recup_id[1]),$chambre);
-					  	  if ($ligne==1) 
-					  	      {
-					  	      	echo $ligne;
-					  	         echo "<script text='javascript'>";
-					  	         echo "alert('Modification effectuee avec succes')";
-					  	         echo "</script>";
-					  	      }
-					  	      else
-					  	      	{
-					  	         echo "<script text='javascript'>";
-					  	         echo "alert('Modification echouee')";
-					  	         echo "</script>";
-					  	      }
+					  	  
+					  	  $ligne=Chambre::setChambre(intval($id),$chambre);
+					  	  
 					  }
 					  	    
-
-
-					  
-
-
-
-
 
 				    public function page_new_pavillon()
 				      {

@@ -2,7 +2,7 @@
 
 
      <head>
-             <meta name="viewport" content="width=device-width ;text/html;  charset='utf-8' "/>
+             <meta name="viewport" content="width=device-width" />
                <script src="js/jquery.js"></script>
                <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
                <link href="media/css/jquery.dataTables.css" rel="stylesheet">
@@ -10,13 +10,27 @@
                <script src="media/js/jquery.dataTables.js"></script>
 
                <script type="text/javascript">
+                
+                function getRequete ()
+                   {
+                      if (window.XMLHttpRequest) // Mozilla, Safari, ...
+                         Request = new XMLHttpRequest();
+                    else 
+                        if (window.ActiveXObject) // IE
+                              Request = new ActiveXObject("Microsoft.XMLHTTP");
 
+                     return Request;
+                    
+                   }
                
                 $(document).ready(function () 
                 {
                     var count=parseInt( $('#option_count').val() );
                                       
                       $('#infos').modal('show');
+
+
+                      $('#button').attr('disabled','true');
 
                                      
                     
@@ -33,6 +47,7 @@
                             if (confirm('Voulez vous vraiment supprimer cette ligne ?'))                              
 
                                      table.row($(this).parents('tr')).remove().draw();
+                                    
                          } );
 
                        
@@ -53,22 +68,25 @@
                                          else
                                           param2='NULL';
                                 
-                                       
+                                        
+
+                                         httpRequest=getRequete();
+                                         httpRequest.open("POST",'index.php?action=create_opt');
+                                         httpRequest.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                                         corps="param0="+encodeURIComponent($("#Num").val())+"&param1="+encodeURIComponent(param1)+"&param2="+encodeURIComponent(param2)
+                                         +"&param3="+encodeURIComponent(param3);
+                                         httpRequest.send(corps);
                                   
                                      
-                                      $.ajax({
-                                          url : "index.php?action=create_opt", // on donne l'URL du fichier de traitement
-                                          type : "POST", // la requête est de type POST
-                                          data : "param0="+$("#Num").val()+"&param1="+param1+"&param2="+param2+"&param3="+param3  //  on envoie nos données                
-
-                                       });
-
+                              
                                        $('#'+id+' td input:eq(0)').attr('disabled','true');
                                        $('#'+id+' td select').attr('disabled','true');
                                        $('#'+id+' td input:eq(1)').attr('disabled','true');
                                        $('#'+id+' td span.icon-save').attr('disabled','true');
-                                       count--;                      
+                                       count--;      
 
+                                                         
+  
                                    }
 
                                    else
@@ -141,6 +159,10 @@
                <form method='POST'  action='index.php'>
 
                <?php echo'<input id="Num" type="hidden" value="'.$nbr.'" />' ?> ;
+
+                <?php echo'<input id="option_count" type="hidden" value="'.$nb_option.'" />' ?> ;
+
+                
                
 
                 <table id='tableau' cellpadding='0' cellspacing='0' border='0' class='display'>

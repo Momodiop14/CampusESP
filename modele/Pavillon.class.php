@@ -1,5 +1,6 @@
 <?php
 			require_once 'modele/Base.class.php';
+			
 
 			/**
 			* definition de la class PAVILLon
@@ -31,14 +32,11 @@
 
 					     	  
 					  	 	  $req=Base::getBDD()->prepare('insert into pavillon (nom_pavillon,niveau_etude_resident) values (?,?)');
-					  	      $req->execute(array($this->nomPavillon,$this->niveau_resident));
+					  	      $req->execute(array(utf8_encode($this->nomPavillon),$this->niveau_resident));
 
-					  	      $req=Base::getBDD()->prepare('select max(idPavillon) as max from pavillon');
-					  	      $req->execute();
-					  	      $id=$req->fetchAll();
+					  	      $id=Pavillon::getMax();
 
-					  	                                     
-					  	      return (intval($id[0]['max']));
+					  	      return $id;
 
 					      }
 
@@ -78,7 +76,43 @@
 
 					  	 	               );
 					  }
+                       
 
+
+	          public static function if_exist($val) //verifier si le tuple existe
+				{
+	                 
+					$req=Base::getBDD()->prepare("select idPavillon from pavillon where nom_pavillon =?");
+				
+					$req->execute(array($val));
+				
+					$tab=$req->fetchAll();
+
+		            
+		            
+				  
+				    if (count($tab)==0) 
+				    	 $exist=false;
+				    	else
+				    		$exist=true;
+				       
+				        return $exist;
+				  
+				    
+					  	                                     
+	               
+				}
+
+             
+
+              public static function getMax() //last id de la table
+		         {
+		        	 $req=Base::getBDD()->prepare('select max(idPavillon) as max from pavillon');
+			         $req->execute(array());
+					 $id=$req->fetchAll();
+						  	                                     
+		             return (intval($id[0]['max']));
+		         }
 
 
 

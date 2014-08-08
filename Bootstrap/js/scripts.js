@@ -14,7 +14,7 @@ $(document).ready(function ()
 
     
 
-	   var table = $('#tableau').DataTable({"ordering": false});
+	   // var table = $('#tableau').DataTable({"ordering": false});
  
        
          $('#tableau tbody').on( 'click', 'span.icon-delete', function () 
@@ -24,7 +24,22 @@ $(document).ready(function ()
 
              
                     var param1 = encodeURIComponent( $(this).parents('tr').attr('id') );
-                  
+
+                     nochambre=$('#'+param1+' td input:eq(0)').val();
+                     
+                     if (nochambre.length==3)
+                            {
+                              prefix=nochambre.charAt(0)+nochambre.charAt(1);
+                              suffix=nochambre.charAt(2);
+                            }
+                          else
+                            if (nochambre.length==2) 
+                                   {
+                                     prefix=nochambre.charAt(0);
+                                     suffix=nochambre.charAt(1);
+                                   }
+ 
+                     
 
                      $.ajax({
                               url : "index.php?action=del_chambre", // on donne l'URL du fichier de traitement
@@ -32,34 +47,30 @@ $(document).ready(function ()
                               data : "param1="+ param1  //  on envoie nos données
                            });
 
-                     table.row($(this).parents('tr')).remove().draw();
-             }
-        } );
+                     var tr=($(this).parents('tr'));
 
+                                                                       
+                        tr.remove();
+                        
 
-       $('#tableau tbody').on( 'click', 'span.icon-update', function () 
-           {
-              if (confirm('Voulez vous vraiment modifier cette chambre ?')) 
-              {
-                  var id = encodeURIComponent( $(this).parents('tr').attr('id') );
-                  param1=$('#'+id+' td input:eq(0)').val();
-                
-                  
-                 $.ajax({
-                          url : "index.php?action=set_chambre", // on donne l'URL du fichier de traitement
-                          type : "POST", // la requête est de type POST
-                          data : "param0="+id+"&param1="+param1  //  on envoie nos données                
+                     $("#tableau input.no_chambre").each( function (index ) 
 
-                       });
-              }
-             
+                        {
+                             if (index==parseInt(prefix)-1)
+                               {
+                                 this.value=prefix+suffix;
+                                 prefix++;
+                               }
+                        });
+                     
 
-           });
- 
-      
- 
+                      
+                    
+                    
+                   }
+       
 
-      
+        
+       });
 
-    
-});
+  });
