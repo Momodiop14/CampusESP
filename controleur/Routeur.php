@@ -71,7 +71,7 @@
 		    
 			      if (isset($_REQUEST['action']) ) 
 			      {
-					     switch ($_REQUEST['action']) 
+			      	switch ($_REQUEST['action']) 
 
 					     {
 					         case 'logout':
@@ -701,13 +701,17 @@ Redirect();
 					      	 }
 					      	 break;
 					      }
-			      }
+					     
 
-		           else  
-		           	    $this->Redirect(); 
+			      }
+                   else  
+		           	    { 
+		           	    	session_start();
+		           	    	$this->Redirect();
+                        }		            
 		           	     
                  
-                     
+
          }
          
       }
