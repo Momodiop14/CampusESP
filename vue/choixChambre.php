@@ -41,6 +41,9 @@
   <input type="hidden" name="nationnalite" <?php echo 'value= "'.$_REQUEST['nationnalite'].'"' ;?> />
   <input type="hidden" name="formation" <?php echo 'value= "'.$_REQUEST['formation'].'"' ;?> />
   <input type="hidden" name="option" <?php echo 'value= "'.$_REQUEST['option'].'"' ;?> />
+  <input type="hidden" name="titulaire" <?php echo 'value= "'.$_REQUEST['titulaire'].'"' ;?> />
+  <input type="hidden" name="sexe" <?php echo 'value= "'.$_REQUEST['sexe'].'"' ;?> />
+  
   
 
      <table id='tableau' cellpadding="0" cellspacing="0" border="0" class=" display">

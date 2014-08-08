@@ -89,7 +89,7 @@ CREATE TABLE ETUDIANT
      ooption_etudiant int,
      chambre_habite int,
      formation_etudiant varchar(10),
-     statut_locataire boolean,
+     titulaire boolean,
      nationalite varchar(30),
      CONSTRAINT pk_etudiant primary key (NoEnregistrementEtudiant),
      CONSTRAINT fk_etudiant foreign key (formation_etudiant) references FORMATIONS(Code_Formation) on delete cascade,

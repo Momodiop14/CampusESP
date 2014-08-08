@@ -122,12 +122,12 @@ class Etudiant
         $bdd=Base::getBDD();
         
           
-    	$req=$bdd->prepare("insert into etudiant (identifiant,nom,prenom,date_naissance,lieu_naissance,adresse,nationalite,ooption_etudiant,chambre_habite,formation_etudiant,titulaire,sexe) values( ?,?,?,?,?,?,?,?,?,?,?,?)"); 
+    	$req=$bdd->prepare("insert into etudiant (identifiant,nom,prenom,date_naissance,lieu_naissance,adresse,nationalite,ooption_etudiant,chambre_habite,formation_etudiant,titulaire,sexe_etudiant) values( ?,?,?,?,?,?,?,?,?,?,?,?)"); 
          
       
           
           
-          $req->execute(array('O'.$this->identifiant,$this->nom,$this->prenom,$this->date_naissance,$this->lieu_naissance,$this->adresse,$this->nationnalite,intval($this->option),intval($this->chambre),$this->formation,$this->titulaire,$this->sexe));
+          $req->execute(array(utf8_encode($this->identifiant),$this->nom,$this->prenom,$this->date_naissance,$this->lieu_naissance,$this->adresse,$this->nationnalite,intval($this->option),intval($this->chambre),$this->formation,$this->titulaire,$this->sexe));
     					
       
       // CREATION DES LOYERS POUR L'ETUDIANT EN COURS POUR CHAQUE MOIS   
@@ -151,6 +151,7 @@ class Etudiant
          }
         } 
 
+          var_dump($req->rowCount());
          return $req->rowCount();
         
 
@@ -280,15 +281,17 @@ class Etudiant
     public function getChambres($sexe)
     {
         $bdd=Base::getBDD();
-        $req=$bdd->prepare('SELECT Code_chambre,enregistrement_chambre,position_couloir,niveau_Etage,nom_pavillon from chambre ch,etage et, couloir co, pavillon pa 
+        $req=$bdd->prepare("SELECT Code_chambre,enregistrement_chambre,position_couloir,niveau_Etage,nom_pavillon from chambre ch,etage et, couloir co, pavillon pa 
                                               WHERE
                                     ch.Ref_Couloir=co.Code_Couloir
                                     and co.Ref_etage=et.Code_Etage
-                                    and et.Ref_pavillon=pa.nom_pavillon
-                                    and (co.genre_couloir="X" or co.genre_couloir= ?) ');
+                                    and et.Ref_pavillon=pa.idPavillon
+                                    and (co.genre_couloir='X' or co.genre_couloir=?) " );
         $req->execute(array($sexe));
 
         $rep=$req->fetchall();
+
+        
 
         return $rep;
     }
@@ -296,12 +299,13 @@ class Etudiant
     public function getOccupants($chambre)
     {
         $bdd=Base::getBDD();
-        $req=$bdd->prepare('SELECT nom, prenom, formation_etudiant,nom_Option from etudiant,ooption where 
-                 etudiant.ooption_etudiant=ooption.id_Option and etudiant.chambre_habite= ? ');
+        $req=$bdd->prepare('SELECT nom, prenom, formation_etudiant,nom_Option from etudiant,ooption,chambre where 
+                 etudiant.ooption_etudiant=ooption.id_Option and chambre_habite=enregistrement_chambre and Code_chambre=? ');
 
         $req->execute(array($chambre));
         $rep=$req->fetchall();
-
+       
+        
         return $rep;
     }
 

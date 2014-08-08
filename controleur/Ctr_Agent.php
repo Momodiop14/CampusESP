@@ -179,6 +179,8 @@ require_once 'modele/Etudiant.class.php';
 					$occupants[]=$this->etudiant->getOccupants($chambree['Code_chambre']);
 					
 				}
+
+				
 				
 				
 				require_once 'vue/choixChambre.php';

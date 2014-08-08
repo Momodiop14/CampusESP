@@ -238,6 +238,7 @@
                             
            
                      </div>
+                     <br/> <br/>
 
                      <div class="row">
                            <button id='affiche_chambre'  class='btn btn-info rido' data-toggle="popover" data-placement="top" data-content="afficher/masquer le tableau des chambres">
