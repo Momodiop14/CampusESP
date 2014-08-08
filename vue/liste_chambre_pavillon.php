@@ -13,7 +13,7 @@
       <script type="text/javascript">
             $(document).ready(function() 
             {
-                $('#couloir').hide(); 
+                $('#chambre').hide(); 
                  
                  $('button.rido').mouseenter(function () 
 
@@ -72,7 +72,7 @@
                         }
                     }); */      
 
-             $('#button').submit(function () {
+             $('#valider_couloir').click(function () {
                
                array_select=$('#couloir select');
 
@@ -105,6 +105,8 @@
                           data : "tab_select="+tab_select+"&tab_couloir="+tab_couloir   //  on envoie nos données                
 
                        });
+
+                 alert("La modification de couloirs est reussie");
 
                   $('#couloir').slideUp('slow');
 
@@ -147,10 +149,15 @@
                                  </div> 
                    </div>
 
-                   <button id='affiche_couloir' class='btn rido btn' data-toggle="popover" data-placement="top" data-content="afficher/masquer le tableau des chambres">
+                     <div class="row">
 
-                            <span class='glyphicon glyphicon-plus'></span>
+                            <button id='affiche_couloir' class='btn rido btn' data-toggle="popover" data-placement="top" data-content="afficher/masquer le tableau des couloirs">
+
+                            <span class='glyphicon glyphicon-minus'></span>
                   </button>
+                       </div>
+ 
+                  
                     
 
                      <div id='couloir' class="row">                           
@@ -221,20 +228,26 @@
                                    </table>
                                  </div>
                                </div>
-                                
-                            <div class="row">
-                                     <button id="valide_couloir" type='submit' class="btn btn-success col-lg-offset-5 " > 
-                                       <span class='glyphicon glyphiconok'></span> Terminer
 
-                                      </button>
-                                </div>
+
+                               <button id="valider_couloir" type='submit' class="btn btn-success col-lg-offset-5 " > 
+                                      <span class='glyphicon glyphicon-ok'></span> Terminer
+
+                               </button>
+                                
+                            
            
                      </div>
 
-                     <button id='affiche_chambre'  class='btn btn-info rido' data-toggle="popover" data-placement="top" data-content="afficher/masquer le tableau des chambres">
+                     <div class="row">
+                           <button id='affiche_chambre'  class='btn btn-info rido' data-toggle="popover" data-placement="top" data-content="afficher/masquer le tableau des chambres">
 
                           <span  class='glyphicon glyphicon-plus'></span>
                       </button>
+
+                     </div>
+
+                    
 
                      <div class="row" id="chambre" style='margin-top:60px'>
 
