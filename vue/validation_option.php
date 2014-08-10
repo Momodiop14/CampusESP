@@ -2,7 +2,7 @@
 
 
      <head>
-             <meta name="viewport" content="width=device-width" />
+             <meta name="viewport" content="width=device-width" charset='utf-8'/>
                <script src="js/jquery.js"></script>
                <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
                <link href="media/css/jquery.dataTables.css" rel="stylesheet">

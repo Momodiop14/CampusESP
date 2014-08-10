@@ -11,7 +11,7 @@
 		
 		<!-- Intégration de la libraire de composants du Bootstrap -->
 		<script src="Bootstrap/js/bootstrap.min.js"></script> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset='utf-8'>
 		
          
 	     

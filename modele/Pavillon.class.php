@@ -77,6 +77,15 @@
 					  	 	               );
 					  }
                        
+                      public static function getPavillons()
+					     {
+					  	      $req=Base::getBDD()->prepare('select nom_pavillon from pavillon ');
+					  	      
+					  	      $req->execute(array());
+					  	      $lignes=$req->fetchAll();
+			                
+			                	return $lignes;
+					     }
 
 
 	          public static function if_exist($val) //verifier si le tuple existe

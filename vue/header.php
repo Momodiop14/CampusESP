@@ -20,9 +20,4 @@
       </header>
 
 
-  <!-- <ul class="nav nav-tabs"> -->
-      <!-- <li class="active"><a href="#">Accueil</a></li> -->
-      <!-- <li ><a href="index.php?action=SuiviEtudiant">Suivi Etudiant</a></li> -->
-      <!-- <li><a href="index.php?action=Codifier">Codifier</a><li> -->
-      <!-- <li><a href="index.php?action=EditerEtudiant">Editer Etudiant</a><li>  -->
-<!-- </ul> -->
+  

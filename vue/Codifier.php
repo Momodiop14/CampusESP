@@ -3,7 +3,7 @@
 <head>
 <title>Codifier</title>
 <!-- On ouvre la fenêtre à la largeur de l'écran -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset='utf-8'> 
 <!-- Intégration du CSS Bootstrap -->
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen"> 
 <!-- Intégration de la libraire jQuery -->

@@ -29,6 +29,7 @@
                                 $_SESSION['nom']=$user[0]['nom_'.$table];
                                 $_SESSION['type_user']=$table;
                                 $_SESSION['compt_visit']=1;
+                                $_SESSION['list_pav']=Pavillon::getPavillons();
 
                                 switch ($table) 
                                  {

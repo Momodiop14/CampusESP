@@ -2,7 +2,7 @@
 
 
      <head>
-             <meta name="viewport" content="width=device-width ;text/html;  charset='utf-8' "/>
+             <meta name="viewport" content="width=device-width "  charset='utf-8' />
      	         <script src="js/jquery.js"></script>
                <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
                <script src="Bootstrap/js/bootstrap.js"></script>

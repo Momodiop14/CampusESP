@@ -1,4 +1,4 @@
-<header class="page-header">
+ <header class="page-header">
          <div class="row">
                   <div class='col-xs-offset-3 col-xs-3'><img alt='logo' src="img/logo_esp.jpg"/></div>            
             </div>  
@@ -20,7 +20,7 @@
 </header>
 <div class='row '>
 
-        <nav class='navbar navbar-default col-xs-offset-2 col-xs-8' role='navigation'>
+        <nav class='navbar navbar-default col-xs-offset-3 col-xs-6' role='navigation'>
 
                   
                       <div class='navbar-header collapse navbar-collapse'>
@@ -30,12 +30,25 @@
 
                             
                            <li class='dropdown' id='batiment' >
-                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion des Batiments <span class="caret"></span></a>
+                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown">Batiments <span class="caret"></span></a>
                                   
                                    <ul class='dropdown-menu' role='menu'>
                                     <li><a href="index.php?action=add_pav">Ajouter Pavillon</a></li>
-                                    <li class="divider "></li>
                                     
+                              <?php 
+                                  if ( isset($_SESSION['list_pav']) && count($_SESSION['list_pav']) >0 ) 
+                                  {
+                                    foreach ($_SESSION['list_pav'] as $key ) 
+
+                                        {
+                                          echo "<li class='divider'></li>";
+                                          echo "<li><a href='index.php/".$key['nom_pavillon']."'>".$key['nom_pavillon']."</a></li>";
+                                      
+                                        }
+                                    
+                                  }
+                              
+                              ?>
                                    
                                     
 
@@ -44,9 +57,12 @@
                             </li>
 
                           <li class='dropdown' >
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Gestion des utilisateurs<span class="caret"></span> </a>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Utilisateurs<span class="caret"></span> </a>
                                    <ul class='dropdown-menu' role='menu'>
                                     <li><a href="index.php?action=new_user">Nouvel utilisateur</a></li>
+                                    <li class="divider "></li>
+
+                                    <li><a href="index.php?action=new_user">Gestions des utilisateurs</a></li>
                                                                                                     
                                   </ul>
                           </li>
@@ -54,21 +70,23 @@
                           <li class='dropdown' id='reserv'>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametrage <span class="caret"></span></a>
                                    <ul class='dropdown-menu' role='menu'>
-                                    <li><a href="index.php?action=Reservation">Parametrage reservation</a></li>
-                                     <li><a href="">Nouvelle annee academique</a></li>
+                                    <li><a href="index.php?action=Reservation">Paramètrage réservation</a></li>
+                                     <li><a href="">Nouvelle année académique</a></li>
                                                                  
                                   </ul>
 
                           </li>
 
                           <li class='dropdown' id='sco' >
-                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion Scolarite <span class="caret"></span></a>
+                            <a  href="#" class="dropdown-toggle" data-toggle="dropdown">Scolarite <span class="caret"></span></a>
                                    <ul class='dropdown-menu' role='menu'>
-                                    <li><a href="index.php?action=new_dept">Nouveau Departement</a></li>
+                                    <li><a href="index.php?action=new_dept">Nouveau Département</a></li>
                                     <li class="divider"></li>
                                     <li><a href="index.php?action=new_formation">Nouvelle Formation</a></li>
                                     <li class="divider"></li>
                                     <li><a href="index.php?action=new_option">Nouvelle Option</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="index.php?action=new_option">Gestions Département</a></li>
                                                                  
                                                                  
                                   </ul>
