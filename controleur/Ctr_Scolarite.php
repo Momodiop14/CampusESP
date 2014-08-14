@@ -1,6 +1,7 @@
 <?php            require_once('modele/Departement.class.php');
                  require_once('modele/Opt.class.php');
                  require_once('modele/Formation.class.php');
+                 header('Content-Type: text/html; charset=utf-8'); 
 				
 
 				/**
@@ -23,6 +24,7 @@
 					  {
 					  	$nbr=0;
 					  	$nbr=$this->dept->CreateDept($name);
+					  	
 					  	if ($nbr!=0) 
 					  	  {
 					  	      $ajout=true;
@@ -46,7 +48,9 @@
 					  public function save_new_opt($no_dept,$nom_opt,$dut,$ing)
 
 					     {
+
 					     	 $count=$this->opt->save_option($no_dept,$nom_opt);
+					     	 var_dump($count);
 					     	 
 					     	 if ($dut!='NULL') 
 					     	   {
@@ -62,12 +66,23 @@
 
 					   public function save_new_formation($formation)
 					       {
-      
+      	
+                               
+                               if (Formation::if_exist($formation)==false) 
+                               {
+	                               	$this->form->save_formation($formation);
+	                                $succes=true;
 
-                               $this->form->save_formation($formation);
-                               $succes=true;
-
-                               require_once 'vue/accueil_admin.php';
+	                                require_once 'vue/accueil_admin.php';
+                               }
+                              else
+                              	 {
+                                 	 $message_error="Cette formation est deja creée";                        	  
+	                               	                             
+	                                  require_once 'vue/new_formation.php';
+	                                
+	                              }
+                               
 
                            }    
 

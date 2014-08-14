@@ -4,7 +4,7 @@
      <head>
              <meta name="viewport" content="width=device-width "  charset='utf-8' />
      	         <script src="js/jquery.js"></script>
-               <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+               <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
                <script src="Bootstrap/js/bootstrap.js"></script>
                <script src="Bootstrap/js/scripts.js"></script>
                
@@ -153,8 +153,8 @@
 
                             <button id='affiche_couloir' class='btn rido btn' data-toggle="popover" data-placement="top" data-content="afficher/masquer le tableau des couloirs">
 
-                            <span class='glyphicon glyphicon-minus'></span>
-                  </button>
+                                 <span class='glyphicon glyphicon-minus'></span>
+                           </button>
                        </div>
  
                   

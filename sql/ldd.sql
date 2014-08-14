@@ -8,10 +8,10 @@ create table MOIS
 
 CREATE TABLE PAVILLON
 (
-	idPavillon int auto_increment,
+	
 	nom_pavillon varchar(35),
 	niveau_etude_resident varchar(20),
-	CONSTRAINT pk_pavillon primary key (idPavillon),
+	CONSTRAINT pk_pavillon primary key (nom_pavillon),
 	CONSTRAINT un_pavillon UNIQUE(nom_pavillon)
 
 );
@@ -20,9 +20,9 @@ CREATE TABLE ETAGE
 ( 
 	Code_Etage varchar(15),
 	niveau_Etage varchar(30),
-	Ref_pavillon int,
+	Ref_pavillon varchar(35),
 	CONSTRAINT pk_etage primary key(Code_Etage),
-	CONSTRAINT fk_etage foreign key(Ref_pavillon) references PAVILLON(idPavillon) on delete cascade
+	CONSTRAINT fk_etage foreign key(Ref_pavillon) references PAVILLON(nom_pavillon) on delete cascade
 
 );
 
@@ -78,7 +78,7 @@ CREATE TABLE OOPTION
 
 CREATE TABLE ETUDIANT
 (		
-	 NoEnregistrementEtudiant int auto_increment,
+	 
 	 identifiant varchar(13) ,
      nom varchar(40),
      prenom varchar(70),
@@ -91,10 +91,10 @@ CREATE TABLE ETUDIANT
      formation_etudiant varchar(10),
      titulaire boolean,
      nationalite varchar(30),
-     CONSTRAINT pk_etudiant primary key (NoEnregistrementEtudiant),
+     noTel decimal(9),
+     CONSTRAINT pk_etudiant primary key (identifiant),
      CONSTRAINT fk_etudiant foreign key (formation_etudiant) references FORMATIONS(Code_Formation) on delete cascade,
      CONSTRAINT fk_etudiant2 foreign key (ooption_etudiant) references OOption(id_Option) on delete cascade ,
-     CONSTRAINT un_etudiant UNIQUE(identifiant),
      CONSTRAINT fk_etudiant3 foreign key (chambre_habite) references CHAMBRE(enregistrement_chambre) on delete set null 
 );
 
@@ -104,11 +104,11 @@ CREATE TABLE RESERVATION
 	date_reservation datetime,
 	etat_reservation varchar(50),
 	delai_confirmation_colocation datetime,
-	No_Etu int,
+	No_Etu varchar(13),
 	chambre_reserve int,
 	CONSTRAINT pk_reservation primary key (idReservation),
 	CONSTRAINT fk_reservation foreign key (chambre_reserve) references CHAMBRE(enregistrement_chambre) on delete cascade,
-	CONSTRAINT fk_reservation2 foreign key (No_Etu) references ETUDIANT(NoEnregistrementEtudiant) on delete cascade
+	CONSTRAINT fk_reservation2 foreign key (No_Etu) references ETUDIANT(identifiant) on delete cascade
 );
 
 CREATE TABLE FORMATION_OPTION
@@ -127,7 +127,6 @@ CREATE TABLE GUICHETIER
 	Mot_pass_guichetier varchar(100),
 	prenom_guichetier varchar(50),
 	nom_guichetier varchar(30),
-	date_naissance date,
 	sexe_guichetier char(1),
 	CONSTRAINT pk_guichetier primary key (Login_guichetier)
 
@@ -139,10 +138,10 @@ CREATE TABLE QUITUS
 (
 	NoQuitus int auto_increment,
 	date_delivrance datetime,
-	Matricule_Etudiant int,
+	Matricule_Etudiant varchar(13),
 	Log_Guichetier varchar(100),
 	CONSTRAINT pk_quitus  primary key(NoQuitus),
-	CONSTRAINT fk_quitus  foreign key(Matricule_Etudiant) references ETUDIANT(NoEnregistrementEtudiant) on delete cascade,
+	CONSTRAINT fk_quitus  foreign key(Matricule_Etudiant) references ETUDIANT(identifiant) on delete cascade,
 	CONSTRAINT fk_quitus2 foreign key (Log_Guichetier) references GUICHETIER(Login_guichetier) on delete cascade
 
 
@@ -161,12 +160,12 @@ CREATE TABLE RECU
 CREATE TABLE LOYER
 (
 	 id_loyer int AUTO_INCREMENT,
-     id_etudiant int,
+     id_etudiant varchar(13),
      mois varchar(9),
      Num_reçu int,
      paye boolean,
      CONSTRAINT pk_loyer primary key (id_loyer),
-     CONSTRAINT fk_loyer foreign key  (id_etudiant)   references etudiant(NoEnregistrementEtudiant) on delete cascade,
+     CONSTRAINT fk_loyer foreign key  (id_etudiant)   references etudiant(identifiant) on delete cascade,
      CONSTRAINT fk_loyer2 foreign key (mois)  references MOIS(libelle_mois)on delete cascade
 
 );
@@ -180,7 +179,6 @@ CREATE TABLE AGENT
 	prenom_agent varchar(50),
 	nom_agent varchar(30),
 	sexe_agent char(1),
-	date_naissance_agent date,
 	CONSTRAINT pk_agent primary key (Login_agent)
 
 );
@@ -192,7 +190,6 @@ CREATE TABLE ADMIN
 	Mot_pass_admin varchar(100),
 	prenom_admin varchar(50),
 	nom_admin varchar(30),
-	date_naissance_admin date,
 	sexe_admin char(1),
 	CONSTRAINT pk_admin primary key (Login_admin)
 

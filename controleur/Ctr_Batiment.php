@@ -19,7 +19,7 @@
 					public function add_pavillon ($nom_pav,$nb_etage,$nb_chambre_par_etage,$level)
 					  {
 
-                            $nom_pav[0]='P';
+                           $nom_pav[0]='P';
                            $tab_pav=explode(" ", $nom_pav);
                         
 
@@ -45,7 +45,7 @@
 									 for ($i=0; $i<intval($nb_etage) ; $i++) //boucle pour invoque la methode de creation d'etage
 									   {     
 
-								   	     $this->etage=new Etage($symbole_pav[1].$i,$id_pav,$i); //on cree l'objet etage
+								   	     $this->etage=new Etage($symbole_pav[1].$i,$nom_pav,$i); //on cree l'objet etage
 								   	     $this->etage->createEtage();//on invoque la methode d'insertion a la base donnee
 
 								   	     for ($j=0; $j<2 ; $j++) //boucle parcourant la creation de couloir
@@ -71,14 +71,15 @@
 								   	         
 						              }
 
-						             $liste_chambre=Chambre::getChambre($id_pav);
+						             $liste_chambre=Chambre::getChambre($nom_pav);
 
 						             
 
 
-						             $array_couloir=Pavillon::getCouloir($id_pav);
+						             $array_couloir=Couloir::getCouloir($nom_pav);
 
-						            
+						             
+						             $_SESSION['list_pav']=Pavillon::getPavillons();
 						   	     	 
 						   	     	 require_once 'vue/liste_chambre_pavillon.php';
                                  	
@@ -140,7 +141,10 @@
 					  }
 					  	    
 
-                      
+                      public function page_batiments()
+                      {
+                      	  require_once 'vue/gestion_bat.php';
+                      }
 					  
 
 

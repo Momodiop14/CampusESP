@@ -48,6 +48,22 @@
 
                
             }
+
+
+             public static function getCouloir($idpav)
+                 {
+
+                      $req=Base::getBDD()->prepare(' SELECT Code_Couloir, position_couloir,Ref_Etage 
+
+                        FROM couloir, etage WHERE Ref_Etage = Code_Etage AND Ref_Pavillon=:pav');
+
+                        $req->execute(array(':pav'=>$idpav)); 
+                        $lignes=$req->fetchAll();
+                      
+                        return $lignes;
+                
+                 }
+
   }
 
 

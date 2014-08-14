@@ -3,7 +3,7 @@
                   <div class='col-xs-offset-3 col-xs-3'><img alt='logo' src="img/logo_esp.jpg"/></div>            
             </div>  
           <div class="row">                        
-                 <div class=' col-xs-offset-9 col-xs-3'><?php echo $_SESSION['prenom']."  "."".$_SESSION['nom']?> </div>
+                 <div class=' col-xs-offset-9 col-xs-3'><?php echo htmlspecialchars($_SESSION['prenom'])."  "."".htmlspecialchars($_SESSION['nom'])?> </div>
           </div>
            <div class="row">
                  <div class='col-xs-offset-10'>
@@ -33,6 +33,7 @@
                             <a  href="#" class="dropdown-toggle" data-toggle="dropdown">Batiments <span class="caret"></span></a>
                                   
                                    <ul class='dropdown-menu' role='menu'>
+                                    
                                     <li><a href="index.php?action=add_pav">Ajouter Pavillon</a></li>
                                     
                               <?php 
@@ -62,13 +63,13 @@
                                     <li><a href="index.php?action=new_user">Nouvel utilisateur</a></li>
                                     <li class="divider "></li>
 
-                                    <li><a href="index.php?action=new_user">Gestions des utilisateurs</a></li>
+                                    <li><a href="index.php?action=gestion_user">Gestions des utilisateurs</a></li>
                                                                                                     
                                   </ul>
                           </li>
 
                           <li class='dropdown' id='reserv'>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametrage <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Paramètrage <span class="caret"></span></a>
                                    <ul class='dropdown-menu' role='menu'>
                                     <li><a href="index.php?action=Reservation">Paramètrage réservation</a></li>
                                      <li><a href="">Nouvelle année académique</a></li>

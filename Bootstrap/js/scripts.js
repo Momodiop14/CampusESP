@@ -14,7 +14,7 @@ $(document).ready(function ()
 
     
 
-	   // var table = $('#tableau').DataTable({"ordering": false});
+	    //var table = $('#tableau').DataTable({"ordering": false});
  
        
          $('#tableau tbody').on( 'click', 'span.icon-delete', function () 

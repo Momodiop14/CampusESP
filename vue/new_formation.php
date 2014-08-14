@@ -6,6 +6,7 @@
      	       <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
              <script src="js/jquery.js"></script>
              <script src="Bootstrap/js/bootstrap.js"></script>
+             
 
              
 
@@ -13,7 +14,20 @@
     <body>
   	<div class="container">
   	
-  		<?php require_once('menu_admin.php'); ?>
+  		<?php require_once('menu_admin.php'); 
+
+
+      
+             if (isset($message_error)) 
+              
+                        
+               echo ' <div  class="alert alert-danger alert-dismissible" role="alert">
+               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+               <strong>'.$message_error.'</strong> </div>' ;
+
+
+
+      ?>
 
       <section class='col-lg-12 col-lg-offset-3'>
            

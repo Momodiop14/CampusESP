@@ -8,6 +8,7 @@
 		require_once 'Controleur/Ctr_Reservation.php';
 		require_once 'Controleur/Ctr_Guichetier.php';
 		
+		
 		class Routeur 
 	  {
 	  	  private  $ctr_accueil_auth;
@@ -32,6 +33,10 @@
 
 		     public function Redirect ()
 		     {
+
+		     	  
+		              	
+		          	    
 		     	
 		     	 if (isset($_SESSION['login'])) 
 		     	 
@@ -194,22 +199,26 @@
 					      	 
 
 					      	  case 'create_opt':
-					      	             {
-                                               session_start();
+					      	        {
+                                          session_start();
 
-                                                 if( (isset($_SESSION['login'] ))  && (isset($_REQUEST['param0'] )) && $_SESSION['type_user']=='admin')
+                                          if( (isset($_SESSION['login'] ))  && (isset($_REQUEST['num_dept'] )) && $_SESSION['type_user']=='admin') ///validation des option d'un departement
 									        
-									              	 {
-									              	 	 $this->ctr_sco->save_new_opt( $_REQUEST['param0'],$_REQUEST['param1'],$_REQUEST['param2'],$_REQUEST['param3'] ) ;
-                                                     }
-                                                    else
-                                                   	    // il y a aucun parametre,affichage de l'accueil
-		           	                                       $this->Redirect();
-
-		           	                             
-					      	             }
-					      	 
-					      	 break;
+											     {   
+												  	 for ($i=0; $i <intval($_REQUEST['option_count']) ; $i++) 
+												      	 { 
+					           						          $this->ctr_sco->save_new_opt($_REQUEST['num_dept'],$_REQUEST['nom_option'.$i],$_REQUEST['dut'.$i],$_REQUEST["cycle_2".$i] ) ; 								
+													              	 	 
+				                                         }
+				                                     $this->Redirect();
+				                                  }
+                                         else
+                               	    // il y a aucun parametre,affichage de l'accueil
+	                                  $this->Redirect();
+		              
+					      	        }
+					      	  	
+					      	  	break;
 
 
 					      	   case 'new_formation':
@@ -271,26 +280,25 @@
 					           	                                $this->ctr_accueil_auth->page_authentification();
 
                                                     }
-                                          break;
+                                          break;*/
                                
                               case 'Reservation':
 					      	             {
                                                session_start();
 
-                                                 if( (isset($_SESSION['login'] )) && ($_SESSION['type_user']=='agent' ) )
+                                                 if( (isset($_SESSION['login'] )) && ($_SESSION['type_user']=='admin' ) )
 									        
 									              	 {
 									              	 	 $this->ctr_reser->page_reservation();
                                                      }
                                                     else
                                                    	// il y a aucun parametre,affichage de l'accueil
-		           	                                $this->Redirect
-Redirect();
+		           	                                $this->Redirect();
 
 		           	                             
 					      	             }
 					      	 
-					      	 break;*/
+					      	 break;
 					      	
 					      	 	
 					      	 case 'add_pav':
@@ -310,6 +318,23 @@ Redirect();
 					      	             }
 					      	 
 					      	 break;
+
+					      	 case 'gestion_bat':
+					      	 	           {
+                                               session_start();
+
+                                                 if( (isset($_SESSION['login'] )) && $_SESSION['type_user']=='admin')
+									        
+									              	 {
+									              	 	 $this->ctr_pav->page_batiments();
+                                                     }
+                                                    else
+                                                   	// il y a aucun parametre,affichage de l'accueil
+		           	                                $this->Redirect();
+
+					      	 	           }
+
+					      	 	break;
 
 					      	 case 'new_user':
 					      	             {
@@ -353,14 +378,9 @@ Redirect();
 
                                              if( (isset($_SESSION['login'] )) &&(isset($_REQUEST['username'])) && $_SESSION['type_user']=='admin')
 									              	 {
-									              	   $this->ctr_admin->saveUser($_REQUEST['username'],$_REQUEST['pwd'],$_REQUEST['prenom'],$_REQUEST['nom'],$_REQUEST['date_naissance'],$_REQUEST['genre'],$_REQUEST['type_user']);
+									              	   $this->ctr_admin->saveUser($_REQUEST['username'],$_REQUEST['prenom'],$_REQUEST['nom'],$_REQUEST['genre'],$_REQUEST['type_user']);
                                                      }
-                                                 else
-
-                                              if( (isset($_SESSION['login'] )) &&(!isset($_REQUEST['name_pav'])) && $_SESSION['type_user']=='admin')
-									              	 {
-									              	   $this->ctr_admin->page_accueil_admin();
-                                                     }
+                                               
 
                                                   
                                                   	 else
@@ -371,6 +391,26 @@ Redirect();
 					      	              }
 					      	 	
 					      	 	break;
+
+
+					      	 		case 'gestion_user':
+					      	              {
+					      	              	  session_start();
+
+                                             if( (isset($_SESSION['login'] ))  && $_SESSION['type_user']=='admin')
+									              	 {
+									              	   $this->ctr_admin->gererUser();
+                                                     }
+                                                 else
+
+                                                	// il y a aucun parametre,affichage de l'accueil
+		           	                                $this->Redirect();
+
+
+					      	              }
+					      	 	
+					      	 	break;
+
 
 					      	 	case 'del_chambre':
 					      	              {

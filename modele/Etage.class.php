@@ -21,7 +21,7 @@
   	      {
   	      	 $base=Base::getBDD();
 					   $req=$base->prepare('insert into etage (Code_Etage,Ref_pavillon,niveau_Etage) values (?,?,?)');
-					   $req->execute(array($this->id_etage,$this->pavillon,$this->niveau_etage));
+					   $req->execute(array($this->id_etage,$this->pavillon,intval($this->niveau_etage) ) );
 
                
 

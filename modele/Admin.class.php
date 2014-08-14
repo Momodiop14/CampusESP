@@ -15,16 +15,65 @@
   		
   	}
 
-  	public function AddUser($login,$pass,$prename,$name,$dateNaissance,$sexe,$table)
+  	public function AddUser($login,$pass,$prename,$name,$sexe,$table)
 
   	{
-       $this->utilisateur=new User($login,$pass,$prename,$name,$dateNaissance,$sexe); //on instancie l'objet user
+       $this->utilisateur=new User($login,$pass,$prename,$name,$sexe); //on instancie l'objet user
   	   $bdd=Base::getBDD();
-       $req=$bdd->prepare("insert into ".$table." (Login_".$table.",Mot_pass_".$table.",prenom_".$table.",nom_".$table.",date_naissance_".$table.",sexe_".$table.") values (?,?,?,?,?,?)");
-       $req->execute(array($this->utilisateur->login,sha1($this->utilisateur->password),$this->utilisateur->prenom,$this->utilisateur->nom,$this->utilisateur->date_naissance,$this->utilisateur->genre));
+       $req=$bdd->prepare("insert into ".$table." (Login_".$table.",Mot_pass_".$table.",prenom_".$table.",nom_".$table.",sexe_".$table.") values (?,?,?,?,?)");
+       $req->execute(array(htmlspecialchars($this->utilisateur->login),sha1($this->utilisateur->password),htmlspecialchars($this->utilisateur->prenom),htmlspecialchars($this->utilisateur->nom),$this->utilisateur->genre));
 
      
   	}
+
+    public static function getUsers($table)
+    {
+         $bdd=Base::getBDD();
+         
+         $req=$bdd->prepare("select * from ".$table);
+         $req->execute();
+         $rows=$req->fetchAll();
+         if (count($rows)>0) 
+           {
+              #var_dump($rows);
+              return $rows;
+
+           }
+                        
+     }
+    
+     public static function setUser($table)
+       {
+         $bdd=Base::getBDD();
+         
+         $req=$bdd->prepare("select * from ".$table);
+         $req->execute();
+         $rows=$req->fetchAll();
+         if (count($rows)>0) 
+           {
+              #var_dump($rows);
+              return $rows;
+
+           }
+                        
+       }
+        public static function delUser($table)
+       {
+         $bdd=Base::getBDD();
+         
+         $req=$bdd->prepare("select * from ".$table);
+         $req->execute();
+         $rows=$req->fetchAll();
+         if (count($rows)>0) 
+           {
+              #var_dump($rows);
+              return $rows;
+
+           }
+                        
+       }
+
+
   }
 
 

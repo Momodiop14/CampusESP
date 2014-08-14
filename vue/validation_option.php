@@ -10,19 +10,7 @@
                <script src="media/js/jquery.dataTables.js"></script>
 
                <script type="text/javascript">
-                
-                function getRequete ()
-                   {
-                      if (window.XMLHttpRequest) // Mozilla, Safari, ...
-                         Request = new XMLHttpRequest();
-                    else 
-                        if (window.ActiveXObject) // IE
-                              Request = new ActiveXObject("Microsoft.XMLHTTP");
-
-                     return Request;
-                    
-                   }
-               
+                              
                 $(document).ready(function () 
                 {
                     var count=parseInt( $('#option_count').val() );
@@ -30,8 +18,7 @@
                       $('#infos').modal('show');
 
 
-                      $('#button').attr('disabled','true');
-
+                      
                                      
                     
                     $('button#close_modal').click(function ()
@@ -39,68 +26,19 @@
                           $('#infos').modal('hide');
                      });
 
+                   
                      var table = $('#tableau').DataTable({"ordering": false});
                  
                        
                          $('#tableau tbody').on( 'click', 'span.icon-delete', function () 
                          {
                             if (confirm('Voulez vous vraiment supprimer cette ligne ?'))                              
-
-                                     table.row($(this).parents('tr')).remove().draw();
-                                    
-                         } );
-
-                       
-
-
-                       $('#tableau tbody').on( 'click', 'span.icon-save', function () 
-                           {
-                              if (confirm('Voulez vous vraiment valider cette ligne ?')) 
-                              {
-                                  var id = encodeURIComponent( $(this).parents('tr').attr('id') );
-                                  if ($('#'+id+' td input:eq(0)').val()!='')
                                    {
-                                      param1=$('#'+id+' td input:eq(0)').val();
-                                      param3=$('#'+id+' td select').val();
-                                  
-                                      if ($('#'+id+' td input:eq(1)').is(':checked')) 
-                                              param2='DUT';   
-                                         else
-                                          param2='NULL';
-                                
-                                        
-
-                                         httpRequest=getRequete();
-                                         httpRequest.open("POST",'index.php?action=create_opt');
-                                         httpRequest.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-                                         corps="param0="+encodeURIComponent($("#Num").val())+"&param1="+encodeURIComponent(param1)+"&param2="+encodeURIComponent(param2)
-                                         +"&param3="+encodeURIComponent(param3);
-                                         httpRequest.send(corps);
-                                  
-                                     
-                              
-                                       $('#'+id+' td input:eq(0)').attr('disabled','true');
-                                       $('#'+id+' td select').attr('disabled','true');
-                                       $('#'+id+' td input:eq(1)').attr('disabled','true');
-                                       $('#'+id+' td span.icon-save').attr('disabled','true');
-                                       count--;      
-
-                                                         
-  
+                                     table.row($(this).parents('tr')).remove().draw();
                                    }
-
-                                   else
-                                    alert("Veuillez saisire le nom de l'option s'il vou plait !!!");
-                               }
-
-                              
-
-                           });
-                 
-                      
-                 
-
-                      
+                                     
+                                    
+                         } );           
 
                     
                 });
@@ -156,11 +94,11 @@
              <div class='row'>
 
                               
-               <form method='POST'  action='index.php'>
+               <form method='POST'  action='index.php?action=create_opt'>
 
-               <?php echo'<input id="Num" type="hidden" value="'.$nbr.'" />' ?> ;
+               <?php echo'<input name="num_dept" type="hidden" value="'.$nbr.'" />' ?> ;
 
-                <?php echo'<input id="option_count" type="hidden" value="'.$nb_option.'" />' ?> ;
+                <?php echo'<input name="option_count" type="hidden" value="'.$nb_option.'" />' ?> ;
 
                 
                
@@ -194,15 +132,14 @@
 
                            echo "<tr id='".$i."' >";                                                   
 
-                           echo "<td><input type='text' class='form-control ' required /> </td>" ;
+                           echo "<td><input type='text' name='nom_option".$i."' class='form-control ' required /> </td>" ;
 
-                           echo "<td><input type='checkbox' name='dut'  style='margin-right:20px;' title='cochez cette case si il existe la formation de premiere cycle'  /><select name='cycle_2'  title='selectionner le choix pour le deuxieme cycle'> <option>NEANT</option> <option>DIC</option> <option>DESCAF</option></select>  </td>" ;
+                           echo "<td> <select name='dut".$i."'  title='selectionner le choix pour le premier cycle'> <option value='NULL'>NEANT</option> <option value='DUT'>DUT</option> </select>   <select name='cycle_2".$i."'  title='selectionner le choix pour le deuxieme cycle'> <option value='NEANT'>NEANT</option> <option value='DIC'>DIC</option> <option value='DESCAF'>DESCAF</option></select>  </td>" ;
                            
                            
                             
                             echo "<td>
-                                      <span class='btn  icon-save glyphicon glyphicon-floppy-save' title='valider le parametrage'></span>
-                                      <span class='btn  icon-delete glyphicon glyphicon-remove ' title='supprimer la ligne '></span>
+                                       <span class='btn  icon-delete glyphicon glyphicon-remove ' title='supprimer la ligne '></span>
                                                                   
                                   </td>";
 

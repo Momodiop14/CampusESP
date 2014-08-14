@@ -11,19 +11,17 @@
 				protected $password;
 				protected $prenom;
 				protected $nom;
-				protected $date_naissance;
 				protected $genre;
 		
 				
 
-				function __construct($pseudo,$pwd,$surname,$name,$birthdate,$sexe) //constructeur pour insertion
+				function __construct($pseudo,$pwd,$surname,$name,$sexe) //constructeur pour insertion
 				     
 				     {
                         $this->login=$pseudo;
                         $this->password=$pwd;
                         $this->prenom=$surname;
                         $this->nom=$name;
-                        $this->date_naissance=$birthdate;
                         $this->genre=$sexe;
                         	    
 			         }

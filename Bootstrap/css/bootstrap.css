@@ -280,7 +280,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
-  background-color: #fff;
+  background-color: rgb(78,145,194);
 }
 input,
 button,
@@ -741,6 +741,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  background-color: white ;
 }
 @media (min-width: 768px) {
   .container {

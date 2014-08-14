@@ -43,14 +43,7 @@
                                          
                    </div> 
 
-                   <div class="row">
-
-                           <div class="col-xs-10 col-xs-offset-1  ">
-                               <input class='form-control ' type='password' name="pwd" placeholder='Mot de passe' required>
-                           </div>
-                                         
-                   </div>
-
+                  
                     <div class="row">
 
                            <div class="col-xs-10 col-xs-offset-1  ">
@@ -67,15 +60,7 @@
                                          
                    </div>
 
-                   <div class="row">
-
-                           <div class="col-xs-10 col-xs-offset-1  ">
-                               <input class='form-control ' type='date' name="date_naissance" placeholder="Date de naissance" required>
-                           </div>
-                                         
-                   </div>
-
-                   <div class="row">
+                    <div class="row">
 
                            <div class="col-xs-10  col-xs-offset-1  ">
                                <label class='col-xs-offset-2' for='genre'>Choix du genre</label>

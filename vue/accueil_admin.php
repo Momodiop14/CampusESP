@@ -14,7 +14,7 @@
   	
   		
 
-<div class='row '>
+    <div class='row '>
 
     <?php 
 
@@ -31,11 +31,21 @@
             if (isset($succes)) 
 
              {
-              echo '<div class="alert alert-success alert-dismissible" role="alert">
+              echo '<div class=" col-lg-offset-2 col-lg-8 alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <strong>Votre derniere operation a ete effectuee avec succes!!!!  </strong> </div>';
+              <strong>Votre dernière opération a ete effectuée avec succés!!!!  </strong> </div>';
 
            
+             }
+
+             if (isset($pass)) 
+             {
+                  echo "<script text='javsacript'>";
+
+                  echo "alert('Le mot de passe creé est  :'".$pass.")";
+
+                  echo "</script>";
+
              }
              
 

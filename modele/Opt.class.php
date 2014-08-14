@@ -14,16 +14,18 @@
 
 		public function save_option($dept,$opt)
 
-		  {  
-			
+		  { 
+         
+
+			  
 		    $base=Base::getBDD();
 		    $query=$base->prepare("insert into ooption (nom_Option,Num_dep) values (?,?)");
-		    $query->execute(array($opt,intval($dept) ) );
+		    $query->execute(array(htmlspecialchars($opt),intval($dept) ) );
            
              if ($query->rowCount()==1)
            
                   return $base->lastInsertId();
-
+       
          }
 
 
